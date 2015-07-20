@@ -10,8 +10,6 @@ public class CameraSeeTriggerObject : MonoBehaviour {
 	public event CameraGivenDelegate OnCameraStay;
 	public event CameraGivenDelegate OnCameraExit;
 
-	private bool _checkObjectNow = false;
-
 	private List<Camera> _camerasThatSeeObject = new List<Camera>(){};
 
 	public void CheckSeenByCamera(Camera cam) {
