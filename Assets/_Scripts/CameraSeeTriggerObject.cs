@@ -15,23 +15,35 @@ public class CameraSeeTriggerObject : MonoBehaviour {
 	public void CheckSeenByCamera(Camera cam) {
 		if (RendererExtensions.IsVisibleFrom (GetComponent<Renderer> (), cam)) {
 			if (!CheckSeenByCam (cam)) {
-				_camerasThatSeeObject.Add(cam);
-				if(OnCameraEnter != null){
-					OnCameraEnter (cam);
-				}
+				StartSeen(cam);
 			}
-			if (OnCameraStay != null) {
-				OnCameraStay (cam);
-			}
+			Seen(cam);
+
 		} else {
 			if(CheckSeenByCam(cam)){
-				_camerasThatSeeObject.Remove(cam);
-				if(OnCameraExit != null){
-					OnCameraExit (cam);
-				}
+				StopSeen(cam);
 			}
 		}
+	}
 
+	void StartSeen(Camera cam){
+		_camerasThatSeeObject.Add(cam);
+		if(OnCameraEnter != null){
+			OnCameraEnter (cam);
+		}
+	}
+
+	void Seen(Camera cam){
+		if (OnCameraStay != null) {
+			OnCameraStay (cam);
+		}
+	}
+
+	void StopSeen(Camera cam){
+		_camerasThatSeeObject.Remove(cam);
+		if(OnCameraExit != null){
+			OnCameraExit (cam);
+		}
 	}
 
 	bool CheckSeenByCam(Camera cam){
