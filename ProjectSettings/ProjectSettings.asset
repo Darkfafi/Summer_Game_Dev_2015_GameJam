@@ -399,8 +399,10 @@ PlayerSettings:
   iOS::ScriptingBackend: 0
   boolPropertyNames:
   - WebGL::dataCaching
+  - WebGL::useEmbeddedResources
   - XboxOne::enus
   WebGL::dataCaching: 0
+  WebGL::useEmbeddedResources: 0
   XboxOne::enus: 1
   stringPropertyNames:
   - WebGL::emscriptenArgs
