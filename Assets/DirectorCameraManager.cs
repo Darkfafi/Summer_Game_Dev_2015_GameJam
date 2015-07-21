@@ -13,6 +13,7 @@ public class DirectorCameraManager : MonoBehaviour {
 		foreach (Camera c in DirectorCameraList) 
 		{
 			c.gameObject.SetActive(false);
+			c.enabled = true;
 			Destroy(c.GetComponent<AudioListener>());
 		}
 		DirectorCameraList[0].gameObject.SetActive(true);
