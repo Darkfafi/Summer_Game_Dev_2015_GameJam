@@ -1,16 +1,37 @@
 ﻿using UnityEngine;
 using System.Collections;
+using System.Collections.Generic;
+
 
 public class CameraObjectScanner : MonoBehaviour {
 
 	Camera thisCamera;
+
+	List<GameObject> _allVisableObjects = new List<GameObject>(){};
+	List<ObjectViewInfo> _objectsViewInfo = new List<ObjectViewInfo>(){};
 
 	void Start(){
 		thisCamera = GetComponent<Camera> ();
 	}
 
 	void Update(){
-		GetObjectBoundInViewPercentage(GameObject.Find("Cube"));
+		GetObjectBoundInViewPercentage(GameObject.Find("Cube")); // For Debugging! Will later be called through object
+
+	}
+
+	public void StartSeeingObject(GameObject obj){
+		_allVisableObjects.Add (obj);
+
+		//ObjectViewInfo objInfo = new ObjectViewInfo(obj,)
+		_objectsViewInfo.Add(objInfo)
+	}
+
+	public void SeeingObject(GameObject obj){
+		
+	}
+
+	public void StopSeeingObject(GameObject obj){
+		_allVisableObjects.Remove (obj);
 	}
 
 	void GetObjectBoundInViewPercentage(GameObject otherObj){

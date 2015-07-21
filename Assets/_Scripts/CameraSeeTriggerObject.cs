@@ -27,6 +27,9 @@ public class CameraSeeTriggerObject : MonoBehaviour {
 	}
 
 	void StartSeen(Camera cam){
+		if(cam.GetComponent<CameraObjectScanner>() != null){
+			cam.GetComponent<CameraObjectScanner>().StartSeeingObject(this.gameObject);
+		}
 		_camerasThatSeeObject.Add(cam);
 		if(OnCameraEnter != null){
 			OnCameraEnter (cam);
@@ -40,6 +43,9 @@ public class CameraSeeTriggerObject : MonoBehaviour {
 	}
 
 	void StopSeen(Camera cam){
+		if (cam.GetComponent<CameraObjectScanner> () != null) {
+			cam.GetComponent<CameraObjectScanner>().StopSeeingObject(this.gameObject);
+		}
 		_camerasThatSeeObject.Remove(cam);
 		if(OnCameraExit != null){
 			OnCameraExit (cam);
