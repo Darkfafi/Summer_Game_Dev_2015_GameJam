@@ -7,20 +7,27 @@ public class ObjectViewInfo {
 	private float _widthObject;
 	private float _heightObject;
 	private float _distanceObject;
+	private Vector2 _pivot;
 	private float _percentageInViewObject;
 
-	public ObjectViewInfo(GameObject gameObject, float distance, float percentageInView){
+	public ObjectViewInfo(GameObject gameObject, float distance, float percentageInView,float widthObj, float heightObj){
 		_gObject = gameObject;
-		_widthObject = _gObject.GetComponent<Renderer> ().bounds.size.x;
-		_heightObject = _gObject.GetComponent<Renderer> ().bounds.size.y;
+		_widthObject = widthObj;
+		_heightObject = widthObj;
+
+		_pivot = new Vector2(widthObject / 2, heightObject / 2);
 
 		_distanceObject = distance;
 		_percentageInViewObject = percentageInView;
 	}
 
+	public Vector2 pivot{
+		get{return _pivot;}
+	}
+
 	public GameObject gObject{
 		get{return _gObject;}
-		set{_gObject = value;}
+		//set{_gObject = value;}
 	}
 
 	public float widthObject{
@@ -33,10 +40,10 @@ public class ObjectViewInfo {
 	}
 	public float distanceObject{
 		get{return _distanceObject;}
-		set{_distanceObject = value;}
+	//	set{_distanceObject = value;}
 	}
 	public float percentageInViewObject{
 		get{return _percentageInViewObject;}
-		set{_percentageInViewObject = value;}
+	//	set{_percentageInViewObject = value;}
 	}
 }
