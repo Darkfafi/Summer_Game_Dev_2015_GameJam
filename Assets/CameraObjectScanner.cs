@@ -24,11 +24,15 @@ public class CameraObjectScanner : MonoBehaviour {
 
 		float distance = Vector3.Distance(obj.transform.position, transform.position); 
 
-		ObjectViewInfo objInfo = new ObjectViewInfo (obj,distance, GetObjectBoundInViewPercentage(obj),RendererExtensions.GetPerspectiveWidth(obj.GetComponent<Collider>(),thisCamera), 
-		                                             RendererExtensions.GetPerspectiveHeigth(obj.GetComponent<Collider>(),thisCamera),
-		                                             RendererExtensions.GetPerspectiveCenterOfObject(obj.GetComponent<Collider>(),thisCamera)); // TODO Give screen perspective width and height! 
-		Debug.Log (objInfo);
+		Vector3 rightestPoint;
+		Vector3 highestPoint;
+		float width = RendererExtensions.GetPerspectiveWidth(obj.GetComponent<Collider>(), thisCamera, out rightestPoint);
+		float height = RendererExtensions.GetPerspectiveHeigth(obj.GetComponent<Collider>(), thisCamera, out highestPoint);
+		Vector2 center = RendererExtensions.GetPerspectiveCenterOfObject(highestPoint, rightestPoint, width, height);
+		
+		ObjectViewInfo objInfo = new ObjectViewInfo (obj,distance,GetObjectBoundInViewPercentage(obj),width,height,center); // TODO Give screen perspective width and height! 
 		_objectsViewInfoList.Add (objInfo);
+		Debug.Log (objInfo.pivot +" w, "+ objInfo.widthObject + " h, " + objInfo.heightObject + " %, " + objInfo.percentageInViewObject +" ||, "+ GetAllVisibleObjectsSurfacesByOverlap(_objectsViewInfoList)[obj]);
 	}
 
 	public void SeeingObject(GameObject obj){
@@ -92,7 +96,7 @@ public class CameraObjectScanner : MonoBehaviour {
 			overLapSurface = new Vector2();
 
 			if(i == 0){
-				allSurfaces.Add(sortedOnDistanceList[i].gObject,sortedOnDistanceList[i].widthObject * sortedOnDistanceList[i].heightObject);
+				allSurfaces.Add(sortedOnDistanceList[i].gObject,0);
 			}else{
 				ObjectViewInfo obj1;
 				ObjectViewInfo obj2;
@@ -101,22 +105,30 @@ public class CameraObjectScanner : MonoBehaviour {
 
 				for(int j = 0; j < i; j++){
 					obj2 = sortedOnDistanceList[j];
+					Debug.Log((obj1.pivot.x + obj1.widthObject / 2) + " :: " + (obj2.pivot.x - obj2.widthObject / 2));
 					if((obj1.pivot.x + obj1.widthObject / 2 > obj2.pivot.x - obj2.widthObject / 2 || obj1.pivot.x - obj1.widthObject / 2 < obj2.pivot.x + obj2.widthObject / 2)
 					   && (obj1.pivot.y + obj1.heightObject / 2 > obj2.pivot.y - obj2.heightObject / 2 || obj2.pivot.y + obj2.heightObject / 2 > obj1.pivot.y - obj1.heightObject / 2)){
 
+
+
 						if(obj1.pivot.x + obj1.widthObject / 2 > obj2.pivot.x - obj2.widthObject / 2){
-							overLapSurface.x += (obj2.pivot.x - obj2.widthObject / 2) - (obj1.pivot.x + obj1.widthObject / 2);
+
+							overLapSurface.x += Mathf.Abs((obj2.pivot.x - obj2.widthObject / 2) - (obj1.pivot.x + obj1.widthObject / 2));
+							Debug.Log(overLapSurface.x);
+
 						}else if(obj1.pivot.x - obj1.widthObject / 2 < obj2.pivot.x + obj2.widthObject / 2){
-							overLapSurface.x += (obj1.pivot.x - obj1.widthObject / 2) - (obj2.pivot.x + obj2.widthObject / 2);
+							overLapSurface.x += Mathf.Abs((obj1.pivot.x - obj1.widthObject / 2) - (obj2.pivot.x + obj2.widthObject / 2));
+
 						}
 
 						if(obj1.pivot.y + obj1.heightObject / 2 > obj2.pivot.y - obj2.heightObject / 2){
-							overLapSurface.y += (obj2.pivot.y - obj2.heightObject / 2) - (obj1.pivot.y + obj1.heightObject / 2);
+							overLapSurface.y += Mathf.Abs((obj2.pivot.y - obj2.heightObject / 2) - (obj1.pivot.y + obj1.heightObject / 2));
 						}else if(obj2.pivot.y + obj2.heightObject / 2 > obj1.pivot.y - obj1.heightObject / 2){
-							overLapSurface.y += (obj1.pivot.y - obj1.heightObject / 2) - (obj2.pivot.y + obj2.heightObject / 2);
+							overLapSurface.y += Mathf.Abs((obj1.pivot.y - obj1.heightObject / 2) - (obj2.pivot.y + obj2.heightObject / 2));
 						}
 					}
 				}
+				//Debug.Log(overLapSurface);
 				float surfaceBlockedObj = overLapSurface.x * overLapSurface.y;
 				float surfaceObj = obj1.widthObject * obj1.heightObject;
 				float surfaceObjVisable = surfaceObj - surfaceBlockedObj;

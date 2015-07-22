@@ -13,7 +13,7 @@ public class ObjectViewInfo {
 	public ObjectViewInfo(GameObject gameObject, float distance, float percentageInView,float widthObj, float heightObj,Vector2 pivotPosition){
 		_gObject = gameObject;
 		_widthObject = widthObj;
-		_heightObject = widthObj;
+		_heightObject = heightObj;
 
 		_pivot = pivotPosition; //new Vector2(widthObject / 2, heightObject / 2); // TODO Pivot moet ook positie op scherm krijgen.
 
