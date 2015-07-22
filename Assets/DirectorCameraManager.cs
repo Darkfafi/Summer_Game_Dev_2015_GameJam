@@ -25,6 +25,7 @@ public class DirectorCameraManager : MonoBehaviour {
 	{
 		if (Input.GetButtonDown("Fire1")) {
 			SwitchCamera();
+			Score.Instance.AddScore(Random.Range(300, 600));
 		}
 	}
 
