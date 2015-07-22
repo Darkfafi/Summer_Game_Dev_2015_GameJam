@@ -90,7 +90,12 @@ public class RendererExtensions : MonoBehaviour {
                     Debug.DrawRay(camera.transform.position, newCoor - camera.transform.position, Color.green, 0.5f);
                     //Debug.Log(hitInfo.collider.gameObject + " Coor: " + newCoor);
                     hits++;
-                    GetPerspectiveWidth(collider, camera);
+                    //TODO remove debug this
+                    Vector3 rightestPoint;
+                    Vector3 highestPoint;
+                    float width = GetPerspectiveWidth(collider, camera, out rightestPoint);
+                    float height = GetPerspectiveHeigth(collider, camera, out highestPoint);
+                    Vector2 center = GetPerspectiveCenterOfObject(highestPoint, rightestPoint, width, height);
                 }
             }
         }
@@ -99,7 +104,7 @@ public class RendererExtensions : MonoBehaviour {
         return (hits > 0);
 	}
 
-    public static float GetPerspectiveWidth(Collider objectCollider, Camera camera)
+    public static float GetPerspectiveWidth(Collider objectCollider, Camera camera, out Vector3 rightestViewPoint)
     {
         //First get the center middle points
         Bounds objBounds = objectCollider.bounds;
@@ -213,8 +218,8 @@ public class RendererExtensions : MonoBehaviour {
         //TODO fix bug with the viewpoint switching and the code below is not correct anymore somehow
         
 
-        Debug.Log(camera.ViewportToScreenPoint(mostRight));
-        Debug.Log("left" + camera.ViewportToScreenPoint(mostLeft));
+        //Debug.Log(camera.ViewportToScreenPoint(mostRight));
+        //Debug.Log("left" + camera.ViewportToScreenPoint(mostLeft));
 
         if (mostLeft.x <= 0)
         {
@@ -238,28 +243,84 @@ public class RendererExtensions : MonoBehaviour {
         Debug.DrawLine(originalLeft, objBounds.center, Color.blue, 0.5f);
         Debug.DrawLine(originalRight, objBounds.center, Color.red, 0.5f);
         
-        Debug.Log(camera.pixelRect);
+        //Debug.Log(camera.pixelRect);
         
         float width = camera.ViewportToScreenPoint(mostRight).x - camera.ViewportToScreenPoint(mostLeft).x;
         Debug.Log(width);
+        rightestViewPoint = camera.ViewportToScreenPoint(mostRight);
         return width;  //Total width can be gotten with pixelwidth of camera.
 
         // also return x and y from center point of visible points!
         //maybe also inform of pixel rect
     }
 
-    public static float GetPerspectiveHeigth(Collider objectCollider, Camera camera)
+    public static float GetPerspectiveHeigth(Collider objectCollider, Camera camera, out Vector3 highestViewPoint)
     {
+        Bounds objBounds = objectCollider.bounds;
 
+        float adjustValue = 1;
+        float xNeg = objBounds.center.x - (objBounds.extents.x * adjustValue);
+        float xPos = objBounds.center.x + (objBounds.extents.x * adjustValue);
+        float yNeg = objBounds.center.y - (objBounds.extents.y * adjustValue);
+        float yPos = objBounds.center.y + (objBounds.extents.y * adjustValue);
+        float zNeg = objBounds.center.z - (objBounds.extents.z * adjustValue);
+        float zPos = objBounds.center.z + (objBounds.extents.z * adjustValue);
 
-        //TODO implement getting the heigth
-        return 0.0f;
+        //List all different coordinates of the cube vertexes
+        List<Vector3> cornerCoordinates = new List<Vector3>();
+        List<Vector3> viewPortCornerCoordinates = new List<Vector3>();
+        for (int x = 0; x < 2; x++)
+        {
+            for (int y = 0; y < 2; y++)
+            {
+                for (int z = 0; z < 2; z++)
+                {
+                    Vector3 coor = new Vector3();
+                    coor.x = (x == 0) ? xNeg : xPos;
+                    coor.y = (y == 0) ? yNeg : yPos;
+                    coor.z = (z == 0) ? zNeg : zPos;
+                    cornerCoordinates.Add(coor);
+                    viewPortCornerCoordinates.Add(camera.WorldToViewportPoint(coor));
+                }
+            }
+        }
+
+        Vector3 highestPoint = new Vector3(float.MinValue, float.MinValue, float.MinValue);
+        Vector3 lowestPoint = new Vector3(float.MaxValue, float.MaxValue, float.MaxValue);
+
+        foreach (Vector3 vpCoor in viewPortCornerCoordinates)
+        {
+            if (vpCoor.y >= highestPoint.y)
+            {
+                highestPoint = vpCoor;
+            }
+            else if(vpCoor.y <= lowestPoint.y)
+            {
+                lowestPoint = vpCoor;
+            }
+        }
+
+        if (highestPoint.y >= 1)
+        {
+            highestPoint.y = 1;
+        }
+        
+        if (lowestPoint.y <= 0)
+        {
+            lowestPoint.y = 0;
+        }
+        Debug.Log("lowest" + lowestPoint);
+        float height = camera.ViewportToScreenPoint(highestPoint).y - camera.ViewportToScreenPoint(lowestPoint).y;
+        Debug.Log("heigth" + height);
+
+        highestViewPoint = camera.ViewportToScreenPoint(highestPoint);
+        return height;
     }
 
-    public static Vector2 GetPerspectiveCenterOfObject(Collider objectCollider, Camera camera)
+    public static Vector2 GetPerspectiveCenterOfObject(Vector3 highestPoint, Vector3 rightestPoint, float width, float height)
     {
-        Vector3 result3 = camera.WorldToScreenPoint(objectCollider.bounds.center);
-        return new Vector2(result3.x,result3.y); 
-        
+        Vector2 result = new Vector2(highestPoint.y - (height/2), rightestPoint.x - (width/2)); 
+        Debug.Log(result);
+        return result;
     }
 }
