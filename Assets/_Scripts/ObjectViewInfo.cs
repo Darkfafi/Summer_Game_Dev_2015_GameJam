@@ -15,7 +15,7 @@ public class ObjectViewInfo {
 		_widthObject = widthObj;
 		_heightObject = widthObj;
 
-		_pivot = new Vector2(widthObject / 2, heightObject / 2);
+		_pivot = new Vector2(widthObject / 2, heightObject / 2); // TODO Pivot moet ook positie op scherm krijgen.
 
 		_distanceObject = distance;
 		_percentageInViewObject = percentageInView;
