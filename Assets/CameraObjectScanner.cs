@@ -24,12 +24,15 @@ public class CameraObjectScanner : MonoBehaviour {
 
 		float distance = Vector3.Distance(obj.transform.position, transform.position); 
 
-		ObjectViewInfo objInfo = new ObjectViewInfo (obj,distance, GetObjectBoundInViewPercentage (obj),200,200); // TODO Give screen perspective width and height! 
+		ObjectViewInfo objInfo = new ObjectViewInfo (obj,distance, GetObjectBoundInViewPercentage(obj),RendererExtensions.GetPerspectiveWidth(obj.GetComponent<Collider>(),thisCamera), 
+		                                             RendererExtensions.GetPerspectiveHeigth(obj.GetComponent<Collider>(),thisCamera),
+		                                             RendererExtensions.GetPerspectiveCenterOfObject(obj.GetComponent<Collider>(),thisCamera)); // TODO Give screen perspective width and height! 
+		Debug.Log (objInfo);
 		_objectsViewInfoList.Add (objInfo);
 	}
 
 	public void SeeingObject(GameObject obj){
-		
+		GetAllVisibleObjectsSurfacesByOverlap (_objectsViewInfoList);
 	}
 
 	public void StopSeeingObject(GameObject obj){
