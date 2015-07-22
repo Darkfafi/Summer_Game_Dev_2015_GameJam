@@ -13,7 +13,7 @@ public class CameraSeeTriggerObject : MonoBehaviour {
 	private List<Camera> _camerasThatSeeObject = new List<Camera>(){};
 
 	public void CheckSeenByCamera(Camera cam) {
-		if (RendererExtensions.IsVisibleFrom (GetComponent<Renderer> (), cam)) {
+		if (RendererExtensions.IsVisibleFrom (GetComponent<Renderer> (), cam, GetComponent<Collider> () )) {
 			if (!CheckSeenByCam (cam)) {
 				StartSeen(cam);
 			}

@@ -247,4 +247,19 @@ public class RendererExtensions : MonoBehaviour {
         // also return x and y from center point of visible points!
         //maybe also inform of pixel rect
     }
+
+    public static float GetPerspectiveHeigth(Collider objectCollider, Camera camera)
+    {
+
+
+        //TODO implement getting the heigth
+        return 0.0f;
+    }
+
+    public static Vector2 GetPerspectiveCenterOfObject(Collider objectCollider, Camera camera)
+    {
+        Vector3 result3 = camera.WorldToScreenPoint(objectCollider.bounds.center);
+        return new Vector2(result3.x,result3.y); 
+        
+    }
 }
