@@ -42,7 +42,7 @@ public class Score : MonoBehaviour {
 			Text txt = o.GetComponent<Text>();
 			txt.transform.SetParent(transform.parent);
 			txt.enabled = false;
-			m_fScorePlusFontSize = txt.fontSize;
+			m_fScorePlusFontSize = m_cTextField.fontSize * 0.75f;
 			
 			m_lScorePlusTextFields.Add(txt);
 		}
