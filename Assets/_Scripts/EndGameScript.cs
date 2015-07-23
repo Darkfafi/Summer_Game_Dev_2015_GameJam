@@ -3,13 +3,14 @@ using System.Collections;
 
 public class EndGameScript : MonoBehaviour {
 
-	// Use this for initialization
-	void Start () {
-	
-	}
-	
-	// Update is called once per frame
-	void Update () {
-	
-	}
+    public void GameOver(int score)
+    {
+        StaticStatScript.finalScore = score;
+        if (StaticStatScript.highscore < score)
+        {
+            StaticStatScript.highscore = score;
+        }
+        //Application.LoadLevel(2);
+    }
+
 }
