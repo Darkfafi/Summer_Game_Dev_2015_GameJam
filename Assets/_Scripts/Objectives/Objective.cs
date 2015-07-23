@@ -45,7 +45,9 @@ public class Objective {
 			_completed = true;
 		}
 	}
-
+	public void ResetCurrentScore(){
+		_currentScore = 0;
+	}
 	public void ResetFilmObjective(){
 		_currentFilmTime = 0;
 		_currentScore = 0;

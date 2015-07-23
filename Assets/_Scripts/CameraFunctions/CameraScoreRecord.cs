@@ -4,8 +4,14 @@ using System.Collections;
 public class CameraScoreRecord : MonoBehaviour {
 
 	private bool _settingScore = false;
-	private bool _recording = false;
-	private float _waitForScoreInSeconds = 0.5f; 
+	private bool _recording = true;
+
+	private ObjectiveList objList;
+
+	void Start(){
+		objList = GameObject.Find ("GameController").GetComponent<ObjectiveList>();
+		objList.ObjectiveFinished += ObjectiveFinished;
+	}
 
 	void ToggleRecording(){
 		_recording = !_recording;
@@ -18,19 +24,26 @@ public class CameraScoreRecord : MonoBehaviour {
 	public void Record(ObjectViewInfo objInfo){
 		if (_recording) {
 			//GameObject.Find("Score").GetComponent<Score>().AddScore(objInfo.coverData);
-			if(!_settingScore){
-				_settingScore = true;
-				StartCoroutine("SetScore",objInfo);
-			}
-				
+			objList.FilmingObject(objInfo);
 		}
 	}
 
-	IEnumerator SetScore(ObjectViewInfo objInfo){
-		yield return new WaitForSeconds (_waitForScoreInSeconds);
+	void ObjectiveFinished(float score){
+		//if(!_settingScore){
+		//	_settingScore = true;
+		SetScore(score);
+		//}
+	}
 
-		Score.Instance.AddScore(objInfo.coverData);
-		_settingScore = false;
+	public void StopSeeingObject(ObjectViewInfo objInfo){
+		objList.StoppedFilmingObject (objInfo);
+	}
+
+	void SetScore(float score){
+		//yield return new WaitForSeconds (_waitForScoreInSeconds);
+
+		Score.Instance.AddScore(score);
+		//_settingScore = false;
 	}
 
 

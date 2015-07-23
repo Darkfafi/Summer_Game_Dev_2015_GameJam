@@ -22,9 +22,18 @@ public class Score : MonoBehaviour {
 	private float m_fCurrentScore = 0;
 	private float m_fNewCurrentScore = 0;
 	
+	private float m_fMultiplier = 1;
+	
 	public GameObject TotalScore;
 	private float m_fTotalScore = 0;
 	private float m_fNewTotalScore = 0;
+	
+	public float CurrentScore
+	{
+		get {
+			return m_fNewCurrentScore;
+		}
+	}
 	
 	public static Score Instance
 	{
@@ -143,25 +152,24 @@ public class Score : MonoBehaviour {
 	{
 		//TODO check multipliers, add score to left only when objective is done
 		
-		float _fMultiplier = 0;
 		foreach (Multiplier m in ScoreMultiplier.Instance.Multipliers)
 		{
 			switch (m)
 			{
 				case Multiplier.x2:
-					_fMultiplier += 2;
+					m_fMultiplier += 2;
 				break;
 				case Multiplier.x3:
-					_fMultiplier += 3;
+					m_fMultiplier += 3;
 				break;
 				case Multiplier.x4:
-					_fMultiplier += 4;
+					m_fMultiplier += 4;
 				break;
 			}
 		}
 		
 		//TODO break multiplier stuff
-		_fScoreToAdd = _fScoreToAdd * _fMultiplier;
+		_fScoreToAdd = _fScoreToAdd * m_fMultiplier;
 		
 		m_lScorePlusTextFields[m_iScorePlusCounter].transform.position = new Vector3(transform.position.x, transform.position.y + 4, transform.position.z);
 		m_lScorePlusTextFields[m_iScorePlusCounter].enabled = true;
@@ -215,8 +223,12 @@ public class Score : MonoBehaviour {
 			m_iScoreTotalCounter = 0;
 		}
 		
-		
 		m_fNewCurrentScore -= _fScoreToPush;
+	}
+	
+	public float ConvertScore(float _fScore)
+	{
+		return _fScore * m_fMultiplier;
 	}
 	
 	private IEnumerator DisableScore(Text txt)
