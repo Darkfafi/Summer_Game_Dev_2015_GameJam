@@ -40,17 +40,19 @@ public class Objective {
 	}
 	public void AddFilmObjectTime(float time){
 		_currentFilmTime += time;
+		Debug.Log (_currentFilmTime);
 		if (_currentFilmTime >= _timeToFilmInSeconds) {
 			_currentFilmTime = _timeToFilmInSeconds;
 			_completed = true;
 		}
 	}
 	public void ResetCurrentScore(){
+		Score.Instance.RemoveScore (_currentScore);
 		_currentScore = 0;
 	}
 	public void ResetFilmObjective(){
 		_currentFilmTime = 0;
-		_currentScore = 0;
+		ResetCurrentScore ();
 		_completed = false;
 	}
 }

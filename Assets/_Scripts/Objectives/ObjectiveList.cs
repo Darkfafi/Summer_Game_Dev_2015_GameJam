@@ -27,8 +27,9 @@ public class ObjectiveList : MonoBehaviour {
 
 
 		}*/
+		ScoreMultiplier.Instance.AddMultiplier (Multiplier.x2);
 		CreateObjective ("DomTower",100,5);
-		CreateObjective ("Tree", 50, 10);
+		CreateObjective ("Tree", 50, 2);
 	}
 
 
@@ -38,15 +39,14 @@ public class ObjectiveList : MonoBehaviour {
 
 	public void FilmingObject(ObjectViewInfo objectInfo){
 		if (!_filmDelaying) {
-			StartCoroutine ("FilmingObjectDelayed", objectInfo);
 			_filmDelaying = true;
+			StartCoroutine ("FilmingObjectDelayed", objectInfo);
 		}
 	}
 
 	IEnumerator FilmingObjectDelayed(ObjectViewInfo objectInfo){
 		yield return new WaitForSeconds (_waitForScoreInSeconds);
 		_filmDelaying = false;
-		Debug.Log (objectInfo);
 
 		if (GetObjectiveByName (objectInfo.gObject.name) != null) {
 			Objective curObjective = GetObjectiveByName (objectInfo.gObject.name);
@@ -54,7 +54,9 @@ public class ObjectiveList : MonoBehaviour {
 			curObjective.AddFilmObjectTime (_waitForScoreInSeconds); // --> 1 second added per second <--- old
 
 			if (!curObjective.completed) {
-				curObjective.AddScoreObject (curObjective.baseScore + (_allNonObjectivesInScreen.Count * 50)); // TODO goede score in doen dat berekend is.
+				float scoreObject = curObjective.baseScore + (_allNonObjectivesInScreen.Count * 50);
+				Score.Instance.AddScore(scoreObject);// TODO goede score in doen dat berekend is.
+				curObjective.AddScoreObject (Score.Instance.ConvertScore(scoreObject));
 			} else if (curObjective.currentScore != 0) {
 				//end objective event
 				//Score.Instance.AddScore (curObjective.currentScore);
@@ -75,6 +77,8 @@ public class ObjectiveList : MonoBehaviour {
 			Objective curObjective = GetObjectiveByName (objectInfo.gObject.name);
 			if (!curObjective.completed) {
 				curObjective.ResetFilmObjective ();
+				StopCoroutine("FilmingObjectDelayed");
+				_filmDelaying = false;
 			}
 		} else {
 			if(_allNonObjectivesInScreen.Contains(objectInfo.gObject)){

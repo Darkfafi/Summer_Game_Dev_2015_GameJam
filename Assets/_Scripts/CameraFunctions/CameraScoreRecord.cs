@@ -42,7 +42,7 @@ public class CameraScoreRecord : MonoBehaviour {
 	void SetScore(float score){
 		//yield return new WaitForSeconds (_waitForScoreInSeconds);
 
-		Score.Instance.AddScore(score);
+		Score.Instance.PushTotalScore(score);
 		//_settingScore = false;
 	}
 
