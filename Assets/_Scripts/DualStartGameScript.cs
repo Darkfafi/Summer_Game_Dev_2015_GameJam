@@ -6,16 +6,6 @@ public class DualStartGameScript : MonoBehaviour {
 
     private int playersConfirmed = 0;
 
-	// Use this for initialization
-	void Start () {
-	
-	}
-	
-	// Update is called once per frame
-	void Update () {
-	
-	}
-
     //Expects players to be player 1 or player 2
     public void PressStartToContinue(Button button)
     {
