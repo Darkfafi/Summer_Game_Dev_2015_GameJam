@@ -27,6 +27,7 @@ public class ObjectiveList : MonoBehaviour {
 
 
 		}*/
+		ScoreMultiplier.Instance.AddMultiplier (Multiplier.x2);
 		CreateObjective ("DomTower",100,5);
 		CreateObjective ("Tree", 50, 10);
 	}
@@ -54,7 +55,7 @@ public class ObjectiveList : MonoBehaviour {
 
 			if (!curObjective.completed) {
 				float scoreObject = curObjective.baseScore + (_allNonObjectivesInScreen.Count * 50);
-				curObjective.AddScoreObject (scoreObject); // TODO goede score in doen dat berekend is.
+				curObjective.AddScoreObject (Score.Instance.ConvertScore(scoreObject)); // TODO goede score in doen dat berekend is.
 				Score.Instance.AddScore(scoreObject);
 
 			} else if (curObjective.currentScore != 0) {
@@ -77,6 +78,8 @@ public class ObjectiveList : MonoBehaviour {
 			Objective curObjective = GetObjectiveByName (objectInfo.gObject.name);
 			if (!curObjective.completed) {
 				curObjective.ResetFilmObjective ();
+				StopCoroutine("FilmingObjectDelayed");
+				_filmDelaying = false;
 			}
 		} else {
 			if(_allNonObjectivesInScreen.Contains(objectInfo.gObject)){

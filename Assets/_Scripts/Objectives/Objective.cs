@@ -47,11 +47,12 @@ public class Objective {
 	}
 	public void ResetCurrentScore(){
 		Score.Instance.RemoveScore (_currentScore);
+		Debug.Log("ddgf");
 		_currentScore = 0;
 	}
 	public void ResetFilmObjective(){
 		_currentFilmTime = 0;
-		_currentScore = 0;
+		ResetCurrentScore ();
 		_completed = false;
 	}
 }
