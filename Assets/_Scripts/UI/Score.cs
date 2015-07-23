@@ -143,7 +143,7 @@ public class Score : MonoBehaviour {
 	{
 		//TODO check multipliers, add score to left only when objective is done
 		
-		float _fMultiplier = 0;
+		float _fMultiplier = 1;
 		foreach (Multiplier m in ScoreMultiplier.Instance.Multipliers)
 		{
 			switch (m)
