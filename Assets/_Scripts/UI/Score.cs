@@ -26,6 +26,13 @@ public class Score : MonoBehaviour {
 	private float m_fTotalScore = 0;
 	private float m_fNewTotalScore = 0;
 	
+	public float CurrentScore
+	{
+		get {
+			return m_fNewCurrentScore;
+		}
+	}
+	
 	public static Score Instance
 	{
 		get
