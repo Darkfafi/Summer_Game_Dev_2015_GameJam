@@ -47,14 +47,6 @@ public class ScoreMultiplier : MonoBehaviour {
 		}
 		
 		m_fScoreMultiplierFontSize = ScoreMultiplierTextFields[0].fontSize;
-		
-		AddMultiplier(Multiplier.x2);
-		AddMultiplier(Multiplier.x4);
-		RemoveMultiplier(Multiplier.x2);
-		RemoveMultiplier(Multiplier.x4);
-		AddMultiplier(Multiplier.x3);
-		AddMultiplier(Multiplier.x4);
-		
 	}
 	
 	public void AddMultiplier(Multiplier _eMultiplierToAdd)
