@@ -17,15 +17,15 @@ public class BatteryManager : MonoBehaviour {
 	private float m_fBatteryPercentage;
 
 	public Texture2D BatteryTexture;
-	public List<Sprite> m_lBatterySprites;
+	public List<Sprite> BatterySprites;
 	private BatteryState m_eBatteryState = BatteryState.GREEN;
 
 	// Use this for initialization
 	void Start ()
 	{
 		string _sSpriteSheet = AssetDatabase.GetAssetPath(BatteryTexture);
-		m_lBatterySprites = new List<Sprite>();
-		m_lBatterySprites = AssetDatabase.LoadAllAssetsAtPath(_sSpriteSheet).OfType<Sprite>().ToList();
+		//  BatterySprites = new List<Sprite>();
+		//  BatterySprites = AssetDatabase.LoadAllAssetsAtPath(_sSpriteSheet).OfType<Sprite>().ToList();
 
 		m_fBatteryTimeLeft = m_fBatteryTimeTotal;
 		StartCoroutine("SecondTick");
@@ -51,53 +51,53 @@ public class BatteryManager : MonoBehaviour {
 		{
 			m_eBatteryState = BatteryState.RED;
 			SoundManager.Instance.PlaySound(SoundType.BatteryEmpty);
-			GetComponent<Image>().sprite = m_lBatterySprites[9];
+			GetComponent<Image>().sprite = BatterySprites[9];
 		}
 		else if(m_fBatteryPercentage <= 0.2f) 
 		{
 			m_eBatteryState = BatteryState.YELLOW;
 			SoundManager.Instance.PlaySound(SoundType.BatteryLow);
-			GetComponent<Image>().sprite = m_lBatterySprites[8];
+			GetComponent<Image>().sprite = BatterySprites[8];
 		}
 		else if(m_fBatteryPercentage <= 0.3f) 
 		{
 			m_eBatteryState = BatteryState.GREEN;
-			GetComponent<Image>().sprite = m_lBatterySprites[7];
+			GetComponent<Image>().sprite = BatterySprites[7];
 		}
 		else if(m_fBatteryPercentage <= 0.4f) 
 		{
 			m_eBatteryState = BatteryState.GREEN;
-			GetComponent<Image>().sprite = m_lBatterySprites[6];
+			GetComponent<Image>().sprite = BatterySprites[6];
 		}
 		else if(m_fBatteryPercentage <= 0.5f) 
 		{
 			m_eBatteryState = BatteryState.GREEN;
-			GetComponent<Image>().sprite = m_lBatterySprites[5];
+			GetComponent<Image>().sprite = BatterySprites[5];
 		}
 		else if(m_fBatteryPercentage <= 0.6f) 
 		{
 			m_eBatteryState = BatteryState.GREEN;
-			GetComponent<Image>().sprite = m_lBatterySprites[4];
+			GetComponent<Image>().sprite = BatterySprites[4];
 		}
 		else if(m_fBatteryPercentage <= 0.7f) 
 		{
 			m_eBatteryState = BatteryState.GREEN;
-			GetComponent<Image>().sprite = m_lBatterySprites[3];
+			GetComponent<Image>().sprite = BatterySprites[3];
 		}
 		else if(m_fBatteryPercentage <= 0.8f) 
 		{
 			m_eBatteryState = BatteryState.GREEN;
-			GetComponent<Image>().sprite = m_lBatterySprites[2];
+			GetComponent<Image>().sprite = BatterySprites[2];
 		}
 		else if(m_fBatteryPercentage <= 0.9f) 
 		{
 			m_eBatteryState = BatteryState.GREEN;
-			GetComponent<Image>().sprite = m_lBatterySprites[1];
+			GetComponent<Image>().sprite = BatterySprites[1];
 		}
 		else
 		{
 			m_eBatteryState = BatteryState.GREEN;
-			GetComponent<Image>().sprite = m_lBatterySprites[0];
+			GetComponent<Image>().sprite = BatterySprites[0];
 		}
 
 		//print(m_eBatteryState+", "+m_fBatteryPercentage);
