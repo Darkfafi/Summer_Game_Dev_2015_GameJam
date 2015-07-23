@@ -320,8 +320,74 @@ public class RendererExtensions : MonoBehaviour {
 
     public static Vector2 GetPerspectiveCenterOfObject(Vector3 highestPoint, Vector3 rightestPoint, float width, float height)
     {
-        Vector2 result = new Vector2(highestPoint.y - (height/2), rightestPoint.x - (width/2)); 
-        //Debug.Log(result);
+        Vector2 result = new Vector2(rightestPoint.x - (width/2), highestPoint.y - (height/2)); 
         return result;
     }
+
+    /*
+     * Tried using the height algorithm for width, but it was not accurate enough
+     * 
+    public static float GetTestWidth(Collider objectCollider, Camera camera, out Vector3 rightestViewPoint)
+    {
+        Bounds objBounds = objectCollider.bounds;
+
+        float adjustValue = 1;
+        float xNeg = objBounds.center.x - (objBounds.extents.x * adjustValue);
+        float xPos = objBounds.center.x + (objBounds.extents.x * adjustValue);
+        float yNeg = objBounds.center.y - (objBounds.extents.y * adjustValue);
+        float yPos = objBounds.center.y + (objBounds.extents.y * adjustValue);
+        float zNeg = objBounds.center.z - (objBounds.extents.z * adjustValue);
+        float zPos = objBounds.center.z + (objBounds.extents.z * adjustValue);
+        
+        //List all different coordinates of the cube vertexes
+        List<Vector3> cornerCoordinates = new List<Vector3>();
+        List<Vector3> viewPortCornerCoordinates = new List<Vector3>();
+        for (int x = 0; x < 2; x++)
+        {
+            for (int y = 0; y < 2; y++)
+            {
+                for (int z = 0; z < 2; z++)
+                {
+                    Vector3 coor = new Vector3();
+                    coor.x = (x == 0) ? xNeg : xPos;
+                    coor.y = (y == 0) ? yNeg : yPos;
+                    coor.z = (z == 0) ? zNeg : zPos;
+                    cornerCoordinates.Add(coor);
+                    viewPortCornerCoordinates.Add(camera.WorldToViewportPoint(coor));
+                }
+            }
+        }
+
+        Vector3 rightestPoint = new Vector3(float.MinValue, float.MinValue, float.MinValue);
+        Vector3 leftestPoint = new Vector3(float.MaxValue, float.MaxValue, float.MaxValue);
+
+        foreach (Vector3 vpCoor in viewPortCornerCoordinates)
+        {
+            if (vpCoor.x >= rightestPoint.x)
+            {
+                rightestPoint = vpCoor;
+            }
+            else if (vpCoor.x <= leftestPoint.x)
+            {
+                leftestPoint = vpCoor;
+            }
+        }
+
+        if (rightestPoint.x >= 1)
+        {
+            rightestPoint.x = 1;
+        }
+
+        if (leftestPoint.x <= 0)
+        {
+            leftestPoint.x = 0;
+        }
+        Debug.Log("leftest" + leftestPoint);
+        float width = camera.ViewportToScreenPoint(rightestPoint).x - camera.ViewportToScreenPoint(leftestPoint).x;
+        Debug.Log("width" + width);
+
+        rightestViewPoint = camera.ViewportToScreenPoint(rightestPoint);
+        return width;
+    }
+     */
 }

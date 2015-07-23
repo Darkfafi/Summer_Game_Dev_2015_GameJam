@@ -104,31 +104,42 @@ public class CameraObjectScanner : MonoBehaviour {
 				obj1 = sortedOnDistanceList[i];
 
 				for(int j = 0; j < i; j++){
+					//TODO WERKT NIET DOOR VOLEDIGE OVERLAP VAN ALLEEN X OF Y.
 					obj2 = sortedOnDistanceList[j];
-					Debug.Log((obj1.pivot.x + obj1.widthObject / 2) + " :: " + (obj2.pivot.x - obj2.widthObject / 2));
 					if((obj1.pivot.x + obj1.widthObject / 2 > obj2.pivot.x - obj2.widthObject / 2 || obj1.pivot.x - obj1.widthObject / 2 < obj2.pivot.x + obj2.widthObject / 2)
 					   && (obj1.pivot.y + obj1.heightObject / 2 > obj2.pivot.y - obj2.heightObject / 2 || obj2.pivot.y + obj2.heightObject / 2 > obj1.pivot.y - obj1.heightObject / 2)){
 
-
-
-						if(obj1.pivot.x + obj1.widthObject / 2 > obj2.pivot.x - obj2.widthObject / 2){
+						if(obj1.pivot.x + obj1.widthObject / 2 > obj2.pivot.x - obj2.widthObject / 2 && 
+						   obj1.pivot.x + obj1.widthObject / 2 < obj2.pivot.x + obj2.widthObject / 2){
 
 							overLapSurface.x += Mathf.Abs((obj2.pivot.x - obj2.widthObject / 2) - (obj1.pivot.x + obj1.widthObject / 2));
-							Debug.Log(overLapSurface.x);
-
-						}else if(obj1.pivot.x - obj1.widthObject / 2 < obj2.pivot.x + obj2.widthObject / 2){
+					
+						}else if(obj1.pivot.x - obj1.widthObject / 2 < obj2.pivot.x + obj2.widthObject / 2 && 
+						         obj1.pivot.x - obj1.widthObject / 2 > obj2.pivot.x - obj2.widthObject / 2){
 							overLapSurface.x += Mathf.Abs((obj1.pivot.x - obj1.widthObject / 2) - (obj2.pivot.x + obj2.widthObject / 2));
 
 						}
 
-						if(obj1.pivot.y + obj1.heightObject / 2 > obj2.pivot.y - obj2.heightObject / 2){
+						if(overLapSurface.x > obj1.widthObject){
+							overLapSurface.x = obj1.widthObject;
+						}
+
+						//Debug.Log((obj1.pivot.y + obj1.heightObject / 2) +" "+ (obj2.pivot.y - obj2.heightObject / 2));
+						if(obj1.pivot.y + obj1.heightObject / 2 > obj2.pivot.y - obj2.heightObject / 2 &&
+						   obj1.pivot.y + obj1.heightObject / 2 < obj2.pivot.y + obj2.heightObject / 2){
 							overLapSurface.y += Mathf.Abs((obj2.pivot.y - obj2.heightObject / 2) - (obj1.pivot.y + obj1.heightObject / 2));
-						}else if(obj2.pivot.y + obj2.heightObject / 2 > obj1.pivot.y - obj1.heightObject / 2){
+
+						}else if(obj1.pivot.y - obj1.heightObject / 2 < obj2.pivot.y + obj2.heightObject / 2 && 
+						         obj1.pivot.y - obj1.heightObject / 2 > obj2.pivot.y - obj2.heightObject / 2){
 							overLapSurface.y += Mathf.Abs((obj1.pivot.y - obj1.heightObject / 2) - (obj2.pivot.y + obj2.heightObject / 2));
+						}
+
+						if(overLapSurface.y > obj1.heightObject){
+							overLapSurface.y = obj1.heightObject;
 						}
 					}
 				}
-				//Debug.Log(overLapSurface);
+
 				float surfaceBlockedObj = overLapSurface.x * overLapSurface.y;
 				float surfaceObj = obj1.widthObject * obj1.heightObject;
 				float surfaceObjVisable = surfaceObj - surfaceBlockedObj;
