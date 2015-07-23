@@ -144,21 +144,29 @@ public class Score : MonoBehaviour {
 	public void AddScore(float _fScoreToAdd)
 	{
 		//TODO check multipliers, add score to left only when objective is done
-		float _fMultiplier = 1;
 
-		foreach (Multiplier m in ScoreMultiplier.Instance.Multipliers)
+		m_fMultiplier = 0;
+		
+		if (ScoreMultiplier.Instance.Multipliers.Count == 0)
 		{
-			switch (m)
+			m_fMultiplier = 1;
+		}
+		else
+		{
+			foreach (Multiplier m in ScoreMultiplier.Instance.Multipliers)
 			{
-				case Multiplier.x2:
-					m_fMultiplier += 2;
-				break;
-				case Multiplier.x3:
-					m_fMultiplier += 3;
-				break;
-				case Multiplier.x4:
-					m_fMultiplier += 4;
-				break;
+				switch (m)
+				{
+					case Multiplier.x2:
+						m_fMultiplier += 2;
+					break;
+					case Multiplier.x3:
+						m_fMultiplier += 3;
+					break;
+					case Multiplier.x4:
+						m_fMultiplier += 4;
+					break;
+				}
 			}
 		}
 		
@@ -217,7 +225,7 @@ public class Score : MonoBehaviour {
 			m_iScoreTotalCounter = 0;
 		}
 		
-		m_fNewCurrentScore -= _fScoreToPush;
+		//m_fNewCurrentScore -= _fScoreToPush;
 	}
 	
 	public float ConvertScore(float _fScore)

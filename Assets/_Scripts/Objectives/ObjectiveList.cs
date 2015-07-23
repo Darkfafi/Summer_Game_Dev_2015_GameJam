@@ -29,7 +29,7 @@ public class ObjectiveList : MonoBehaviour {
 		}*/
 		ScoreMultiplier.Instance.AddMultiplier (Multiplier.x2);
 		CreateObjective ("DomTower",100,5);
-		CreateObjective ("Tree", 50, 10);
+		CreateObjective ("Tree", 50, 2);
 	}
 
 
@@ -39,8 +39,8 @@ public class ObjectiveList : MonoBehaviour {
 
 	public void FilmingObject(ObjectViewInfo objectInfo){
 		if (!_filmDelaying) {
-			StartCoroutine ("FilmingObjectDelayed", objectInfo);
 			_filmDelaying = true;
+			StartCoroutine ("FilmingObjectDelayed", objectInfo);
 		}
 	}
 
@@ -55,9 +55,8 @@ public class ObjectiveList : MonoBehaviour {
 
 			if (!curObjective.completed) {
 				float scoreObject = curObjective.baseScore + (_allNonObjectivesInScreen.Count * 50);
-				curObjective.AddScoreObject (Score.Instance.ConvertScore(scoreObject)); // TODO goede score in doen dat berekend is.
-				Score.Instance.AddScore(scoreObject);
-
+				Score.Instance.AddScore(scoreObject);// TODO goede score in doen dat berekend is.
+				curObjective.AddScoreObject (Score.Instance.ConvertScore(scoreObject));
 			} else if (curObjective.currentScore != 0) {
 				//end objective event
 				//Score.Instance.AddScore (curObjective.currentScore);

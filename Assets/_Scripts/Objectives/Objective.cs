@@ -40,6 +40,7 @@ public class Objective {
 	}
 	public void AddFilmObjectTime(float time){
 		_currentFilmTime += time;
+		Debug.Log (_currentFilmTime);
 		if (_currentFilmTime >= _timeToFilmInSeconds) {
 			_currentFilmTime = _timeToFilmInSeconds;
 			_completed = true;
@@ -47,7 +48,6 @@ public class Objective {
 	}
 	public void ResetCurrentScore(){
 		Score.Instance.RemoveScore (_currentScore);
-		Debug.Log("ddgf");
 		_currentScore = 0;
 	}
 	public void ResetFilmObjective(){
