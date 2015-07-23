@@ -5,49 +5,75 @@ using System.Collections.Generic;
 
 public class CameraObjectScanner : MonoBehaviour {
 
+	public static int NON_CONTAINTING = 1236664321;
+
 	Camera thisCamera;
+	CameraScoreRecord recorder;
+
 
 	//List<GameObject> _allVisableObjects = new List<GameObject>(){};
 	List<ObjectViewInfo> _objectsViewInfoList = new List<ObjectViewInfo>(){};
 
 	void Start(){
 		thisCamera = GetComponent<Camera> ();
+		
+		if (GetComponent<CameraScoreRecord> () != null) {
+			recorder = GetComponent<CameraScoreRecord>();
+		}
 	}
-	/*
-	void Update(){
-		GetObjectBoundInViewPercentage(GameObject.Find("Cube")); // For Debugging! Will later be called through object
 
-	}*/
+	void Update(){
+		if(recorder != null && recorder.recording){
+			for(int i = _objectsViewInfoList.Count - 1; i >= 0; i--){
+				recorder.Record(_objectsViewInfoList[i]);
+			}
+		}
+	}
 
 	public void StartSeeingObject(GameObject obj){
 		//_allVisableObjects.Add (obj);
 
-		float distance = Vector3.Distance(obj.transform.position, transform.position); 
 
-		Vector3 rightestPoint;
-		Vector3 highestPoint;
-		float width = RendererExtensions.GetPerspectiveWidth(obj.GetComponent<Collider>(), thisCamera, out rightestPoint);
-		float height = RendererExtensions.GetPerspectiveHeigth(obj.GetComponent<Collider>(), thisCamera, out highestPoint);
-		Vector2 center = RendererExtensions.GetPerspectiveCenterOfObject(highestPoint, rightestPoint, width, height);
-		
-		ObjectViewInfo objInfo = new ObjectViewInfo (obj,distance,GetObjectBoundInViewPercentage(obj),width,height,center); // TODO Give screen perspective width and height! 
-		_objectsViewInfoList.Add (objInfo);
-		Debug.Log (objInfo.pivot +" w, "+ objInfo.widthObject + " h, " + objInfo.heightObject + " %, " + objInfo.percentageInViewObject +" ||, "+ GetAllVisibleObjectsSurfacesByOverlap(_objectsViewInfoList)[obj]);
 	}
 
 	public void SeeingObject(GameObject obj){
-		GetAllVisibleObjectsSurfacesByOverlap (_objectsViewInfoList);
+		if (recorder == null || recorder.recording) {
+
+			float distance = Vector3.Distance (obj.transform.position, transform.position); 
+			Vector3 rightestPoint;
+			Vector3 highestPoint;
+			float width = RendererExtensions.GetPerspectiveWidth (obj.GetComponent<Collider> (), thisCamera, out rightestPoint);
+			float height = RendererExtensions.GetPerspectiveHeigth (obj.GetComponent<Collider> (), thisCamera, out highestPoint);
+			Vector2 center = RendererExtensions.GetPerspectiveCenterOfObject (highestPoint, rightestPoint, width, height);
+		
+			ObjectViewInfo objInfo = new ObjectViewInfo (obj, distance, GetObjectBoundInViewPercentage (obj), width, height, center); // TODO Give screen perspective width and height! 
+
+
+			int indexObject = getIndexInfoListObj (obj);
+			if (indexObject != NON_CONTAINTING) {
+				_objectsViewInfoList [indexObject] = objInfo;
+			} else {
+				_objectsViewInfoList.Add (objInfo);
+			}
+			objInfo.coverData = GetAllVisibleObjectsSurfacesByOverlap (_objectsViewInfoList) [obj];
+			//Debug.Log (objInfo.pivot + " w, " + objInfo.widthObject + " h, " + objInfo.heightObject + " %, " + objInfo.percentageInViewObject + " ||, " + GetAllVisibleObjectsSurfacesByOverlap (_objectsViewInfoList) [obj]);
+		}
 	}
 
 	public void StopSeeingObject(GameObject obj){
 		//_allVisableObjects.Remove (obj);
+		_objectsViewInfoList.RemoveAt(getIndexInfoListObj(obj));
+	}
 
+	int getIndexInfoListObj(GameObject obj){
+		int result = NON_CONTAINTING;
 		for (int i =  _objectsViewInfoList.Count - 1; i >= 0; i--) {
 			if(_objectsViewInfoList[i].gObject == obj){
-				_objectsViewInfoList.Remove(_objectsViewInfoList[i]);
+				result = i;
 				break;
 			}
 		}
+		return result;
 	}
 
 	float GetObjectBoundInViewPercentage(GameObject otherObj){
@@ -96,7 +122,7 @@ public class CameraObjectScanner : MonoBehaviour {
 			overLapSurface = new Vector2();
 
 			if(i == 0){
-				allSurfaces.Add(sortedOnDistanceList[i].gObject,0);
+				allSurfaces.Add(sortedOnDistanceList[i].gObject,sortedOnDistanceList[i].widthObject * sortedOnDistanceList[i].heightObject);
 			}else{
 				ObjectViewInfo obj1;
 				ObjectViewInfo obj2;
@@ -104,7 +130,6 @@ public class CameraObjectScanner : MonoBehaviour {
 				obj1 = sortedOnDistanceList[i];
 
 				for(int j = 0; j < i; j++){
-					//TODO WERKT NIET DOOR VOLEDIGE OVERLAP VAN ALLEEN X OF Y.
 					obj2 = sortedOnDistanceList[j];
 					if((obj1.pivot.x + obj1.widthObject / 2 > obj2.pivot.x - obj2.widthObject / 2 || obj1.pivot.x - obj1.widthObject / 2 < obj2.pivot.x + obj2.widthObject / 2)
 					   && (obj1.pivot.y + obj1.heightObject / 2 > obj2.pivot.y - obj2.heightObject / 2 || obj2.pivot.y + obj2.heightObject / 2 > obj1.pivot.y - obj1.heightObject / 2)){

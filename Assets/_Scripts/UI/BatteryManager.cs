@@ -11,6 +11,7 @@ public enum BatteryState
 	YELLOW,
 	RED
 }
+
 public class BatteryManager : MonoBehaviour {
 	private float m_fBatteryTimeTotal = 60;
 	private float m_fBatteryTimeLeft;

@@ -3,8 +3,8 @@ using UnityEngine.UI;
 using System.Collections;
 using System.Collections.Generic;
 
-public class Score : MonoBehaviour {
-	private static Score m_cInstance;
+public class ScoreGia : MonoBehaviour {
+	private static ScoreGia m_cInstance;
 	private Text m_cTextField;
 	
 	public GameObject TextPlus;
@@ -16,13 +16,13 @@ public class Score : MonoBehaviour {
 	private float m_fScore = 0;
 	private float m_fNewScore = 0;
 	
-	public static Score Instance
+	public static ScoreGia Instance
 	{
 		get
 		{
 			if (!m_cInstance)
 			{
-				m_cInstance = new Score();
+				m_cInstance = new ScoreGia();
 			}
 			
 			return m_cInstance; 
@@ -48,6 +48,8 @@ public class Score : MonoBehaviour {
 			m_lScorePlusTextFields.Add(txt);
 		}
 		
+		m_cInstance.AddScore(100);
+		
 	}
 	
 	// Update is called once per frame
@@ -71,9 +73,13 @@ public class Score : MonoBehaviour {
 	
 	public void AddScore(float _fScoreToAdd)
 	{
+		//TODO check multipliers, add score to left only when objective is done
+		
+		
+		
 		m_lScorePlusTextFields[m_iScorePlusCounter].transform.position = new Vector3(transform.position.x, transform.position.y + 4, transform.position.z);
 		m_lScorePlusTextFields[m_iScorePlusCounter].enabled = true;
-		m_lScorePlusTextFields[m_iScorePlusCounter].text = "+" + _fScoreToAdd;
+		m_lScorePlusTextFields[m_iScorePlusCounter].text = "+" + Mathf.Round(_fScoreToAdd);
 		m_lScorePlusTextFields[m_iScorePlusCounter].transform.localScale = Vector3.one * 0.25f;
 		m_lScorePlusTextFields[m_iScorePlusCounter].fontSize = (int)(m_fScorePlusFontSize * 3f);
 		
@@ -86,6 +92,12 @@ public class Score : MonoBehaviour {
 		}
 		
 		m_fNewScore += _fScoreToAdd;
+	}
+	
+	public void PushTotalScore()
+	{
+		//TODO push to objective list
+		
 	}
 	
 	private IEnumerator DisableScore(Text txt)
