@@ -59,6 +59,7 @@ public class CameraSeeTriggerObject : MonoBehaviour {
 				result = true;
 				break;
 			}
+			Debug.Log(i);
 		}
 		return result;
 	}
