@@ -9,25 +9,27 @@ public class CameraObjectScanner : MonoBehaviour {
 
 	Camera thisCamera;
 	CameraScoreRecord recorder;
+    public GameObject debug;
 
 
 	//List<GameObject> _allVisableObjects = new List<GameObject>(){};
 	List<ObjectViewInfo> _objectsViewInfoList = new List<ObjectViewInfo>(){};
 
 	void Start(){
-		thisCamera = GetComponent<Camera> ();
+		thisCamera = GetComponent<Camera> (); 
 		
 		if (GetComponent<CameraScoreRecord> () != null) {
-			recorder = GetComponent<CameraScoreRecord>();
+			//recorder = GetComponent<CameraScoreRecord>();
 		}
 	}
 
 	void Update(){
 		if(recorder != null && recorder.recording){
 			for(int i = _objectsViewInfoList.Count - 1; i >= 0; i--){
-				recorder.Record(_objectsViewInfoList[i]);
+				//recorder.Record(_objectsViewInfoList[i]);
 			}
 		}
+        GetObjectBoundInViewPercentage(debug);
 	}
 
 	public void StartSeeingObject(GameObject obj){
@@ -63,7 +65,7 @@ public class CameraObjectScanner : MonoBehaviour {
 	public void StopSeeingObject(GameObject obj){
 		//_allVisableObjects.Remove (obj);
 		if (recorder == null || recorder.recording) {
-			recorder.StopSeeingObject(_objectsViewInfoList[getIndexInfoListObj(obj)]);
+			//recorder.StopSeeingObject(_objectsViewInfoList[getIndexInfoListObj(obj)]);
 		}
 		if (getIndexInfoListObj (obj) != NON_CONTAINTING) {
 			_objectsViewInfoList.RemoveAt (getIndexInfoListObj (obj));
@@ -87,11 +89,11 @@ public class CameraObjectScanner : MonoBehaviour {
 
 		float frustumHeight = 2 * distance * Mathf.Tan(thisCamera.fieldOfView * 0.5f * Mathf.Deg2Rad); // hoogte van je view
 
-		float bottomFrustumHeight =  transform.position.y - (frustumHeight / 2) + (Mathf.Tan(Mathf.Deg2Rad * (360 - transform.eulerAngles.x)) * distance); // bodem van je view tot het object
+		float bottomFrustumHeight =  transform.position.y - (frustumHeight / 2) + (Mathf.Tan(Mathf.Deg2Rad * ( transform.eulerAngles.x)) * distance); // bodem van je view tot het object
 
-		float percentageInView = (otherObj.transform.position.y + 0.5f) + (otherObj.GetComponent<Renderer> ().bounds.size.y + 0.5f) / (Mathf.Abs(bottomFrustumHeight) + (frustumHeight)); 
+		float percentageInView = ((otherObj.transform.position.y) + (otherObj.GetComponent<Renderer> ().bounds.size.y)/2) / (Mathf.Abs(bottomFrustumHeight) + (frustumHeight)); 
 
-		//Debug.Log (otherObj.GetComponent<Renderer>().bounds.size.y + " " +frustumHeight + " ,% =  " + percentageInView);
+		Debug.Log (otherObj.GetComponent<Renderer>().bounds.size.y + " " +frustumHeight + " ,% =  " + percentageInView);
 		return percentageInView;
 	}
 
