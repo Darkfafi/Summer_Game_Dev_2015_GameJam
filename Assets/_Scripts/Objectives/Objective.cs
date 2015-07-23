@@ -46,6 +46,7 @@ public class Objective {
 		}
 	}
 	public void ResetCurrentScore(){
+		Score.Instance.RemoveScore (_currentScore);
 		_currentScore = 0;
 	}
 	public void ResetFilmObjective(){
