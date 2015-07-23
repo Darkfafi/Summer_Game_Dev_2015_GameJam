@@ -37,6 +37,9 @@ public class CameraSeeTriggerObject : MonoBehaviour {
 	}
 
 	void Seen(Camera cam){
+		if(cam.GetComponent<CameraObjectScanner>() != null){
+			cam.GetComponent<CameraObjectScanner>().SeeingObject(this.gameObject);
+		}
 		if (OnCameraStay != null) {
 			OnCameraStay (cam);
 		}
