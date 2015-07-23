@@ -87,11 +87,11 @@ public class CameraObjectScanner : MonoBehaviour {
 
 		float frustumHeight = 2 * distance * Mathf.Tan(thisCamera.fieldOfView * 0.5f * Mathf.Deg2Rad); // hoogte van je view
 
-		float bottomFrustumHeight =  transform.position.y - (frustumHeight / 2) + (Mathf.Tan(Mathf.Deg2Rad * (360 - transform.eulerAngles.x)) * distance); // bodem van je view tot het object
+		float bottomFrustumHeight =  transform.position.y - (frustumHeight / 2) + (Mathf.Tan(Mathf.Deg2Rad * (transform.eulerAngles.x)) * distance); // bodem van je view tot het object
 
-		float percentageInView = (otherObj.transform.position.y + 0.5f) + (otherObj.GetComponent<Renderer> ().bounds.size.y + 0.5f) / (Mathf.Abs(bottomFrustumHeight) + (frustumHeight)); 
+		float percentageInView = ((otherObj.transform.position.y) + (otherObj.GetComponent<Collider> ().bounds.size.y / 2)) / (Mathf.Abs(bottomFrustumHeight) + (frustumHeight)); 
 
-	//	Debug.Log (otherObj.GetComponent<Renderer>().bounds.size.y + " " +bottomFrustumHeight + " ,% =  " + percentageInView);
+		//Debug.Log (otherObj.GetComponent<Renderer>().bounds.size.y + " " +otherObj + " ,% =  " + percentageInView);
 		return percentageInView;
 	}
 

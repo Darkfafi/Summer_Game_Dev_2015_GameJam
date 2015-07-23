@@ -27,9 +27,8 @@ public class ObjectiveList : MonoBehaviour {
 
 
 		}*/
-		ScoreMultiplier.Instance.AddMultiplier (Multiplier.x2);
 		CreateObjective ("DomTower",100,5);
-		CreateObjective ("Tree", 50, 2);
+		CreateObjective ("Tree", 50, 5);
 	}
 
 

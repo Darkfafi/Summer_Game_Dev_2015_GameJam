@@ -40,7 +40,7 @@ public class Objective {
 	}
 	public void AddFilmObjectTime(float time){
 		_currentFilmTime += time;
-		Debug.Log (_currentFilmTime);
+		ObjectiveManager.Instance.ObjectiveUpdate (_nameObjectToFilm, _currentFilmTime / _timeToFilmInSeconds);
 		if (_currentFilmTime >= _timeToFilmInSeconds) {
 			_currentFilmTime = _timeToFilmInSeconds;
 			_completed = true;
