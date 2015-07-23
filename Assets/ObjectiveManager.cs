@@ -33,8 +33,6 @@ public class ObjectiveManager : MonoBehaviour {
 			t.FindChild("Progress").GetComponent<Slider>().value = 0;
 			t.FindChild("Label").GetComponent<Text>().text = t.gameObject.name;
 		}
-		
-		ObjectiveUpdate("DomTower", 1f);
 	}
 	
 	public void ObjectiveUpdate(string _sObjectiveName, float _fProgressPercentage)
