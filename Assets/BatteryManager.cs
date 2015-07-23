@@ -17,7 +17,7 @@ public class BatteryManager : MonoBehaviour {
 	private float m_fBatteryPercentage;
 
 	public Texture2D BatteryTexture;
-	private List<Sprite> m_lBatterySprites;
+	public List<Sprite> m_lBatterySprites;
 	private BatteryState m_eBatteryState = BatteryState.GREEN;
 
 	// Use this for initialization
