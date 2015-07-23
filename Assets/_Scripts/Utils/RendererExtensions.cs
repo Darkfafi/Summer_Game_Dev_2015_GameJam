@@ -320,7 +320,8 @@ public class RendererExtensions : MonoBehaviour {
     public static Vector2 GetPerspectiveCenterOfObject(Vector3 highestPoint, Vector3 rightestPoint, float width, float height)
     {
         Vector2 result = new Vector2(rightestPoint.x - (width/2), highestPoint.y - (height/2)); 
-        Debug.Log(result);
+        Debug.Log("Center" + result);
+        //Debug.DrawLine(Vector3.zero, Camera.allCameras[0].ScreenToWorldPoint(new Vector3(result.x, result.y, rightestPoint.z)));
         return result;
     }
 
