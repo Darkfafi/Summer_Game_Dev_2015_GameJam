@@ -1621,6 +1621,8 @@ MonoBehaviour:
   - {fileID: 817618769}
   - {fileID: 1204809201}
   - {fileID: 376382141}
+  CamTabs: []
+  CamTabLabels: []
 --- !u!92 &1752164554
 Behaviour:
   m_ObjectHideFlags: 0
