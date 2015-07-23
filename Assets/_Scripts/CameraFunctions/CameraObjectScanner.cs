@@ -62,7 +62,12 @@ public class CameraObjectScanner : MonoBehaviour {
 
 	public void StopSeeingObject(GameObject obj){
 		//_allVisableObjects.Remove (obj);
-		_objectsViewInfoList.RemoveAt(getIndexInfoListObj(obj));
+		if (recorder == null || recorder.recording) {
+			recorder.StopSeeingObject(_objectsViewInfoList[getIndexInfoListObj(obj)]);
+		}
+		if (getIndexInfoListObj (obj) != NON_CONTAINTING) {
+			_objectsViewInfoList.RemoveAt (getIndexInfoListObj (obj));
+		}
 	}
 
 	int getIndexInfoListObj(GameObject obj){

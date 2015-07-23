@@ -4,13 +4,20 @@ using System.Collections.Generic;
 
 public class ObjectiveList : MonoBehaviour {
 
+	private float _waitForScoreInSeconds = 0.5f; 
+	private bool _filmDelaying = false;
+
+	public delegate void ScoreContainingDelegate(float score);
+	public event ScoreContainingDelegate ObjectiveFinished;
+
 	private List<Objective> _objectivesList = new List<Objective>(){};
 	private GameObject[] _listOfFilmableObjects;
+	private List<GameObject> _allNonObjectivesInScreen = new List<GameObject>(){};
 
 	void Start(){
 
-		_listOfFilmableObjects = GameObject.FindGameObjectsWithTag("FilmAble");
-
+		_listOfFilmableObjects = GameObject.FindGameObjectsWithTag("FilmAble"); // if not an objective give a default score of 50 points.
+		/*
 		for (int i = _listOfFilmableObjects.Length - 1; i >= 0; i--) {
 			CameraSeeTriggerObject objectToFilm = _listOfFilmableObjects[i].GetComponent<CameraSeeTriggerObject>();
 
@@ -19,7 +26,7 @@ public class ObjectiveList : MonoBehaviour {
 			objectToFilm.OnCameraExit += StoppedFilmingObject;
 
 
-		}
+		}*/
 		CreateObjective ("DomTower",100,5);
 		CreateObjective ("Tree", 50, 10);
 	}
@@ -29,25 +36,49 @@ public class ObjectiveList : MonoBehaviour {
 
 	}
 
-	void FilmingObject(Camera cam, GameObject gObject){
-		if (GetObjectiveByName (gObject.name) != null) {
-			Objective curObjective = GetObjectiveByName (gObject.name);
+	public void FilmingObject(ObjectViewInfo objectInfo){
+		if (!_filmDelaying) {
+			StartCoroutine ("FilmingObjectDelayed", objectInfo);
+			_filmDelaying = true;
+		}
+	}
 
-			curObjective.AddFilmObjectTime (Time.deltaTime); // 1 second added per second
+	IEnumerator FilmingObjectDelayed(ObjectViewInfo objectInfo){
+		yield return new WaitForSeconds (_waitForScoreInSeconds);
+		_filmDelaying = false;
+		Debug.Log (objectInfo);
+
+		if (GetObjectiveByName (objectInfo.gObject.name) != null) {
+			Objective curObjective = GetObjectiveByName (objectInfo.gObject.name);
+
+			curObjective.AddFilmObjectTime (_waitForScoreInSeconds); // --> 1 second added per second <--- old
 
 			if (!curObjective.completed) {
-				curObjective.AddScoreObject(curObjective.baseScore); // TODO goede score in doen dat berekend is.
-			}else{
-				Score.Instance.AddScore (curObjective.currentScore);
+				curObjective.AddScoreObject (curObjective.baseScore + (_allNonObjectivesInScreen.Count * 50)); // TODO goede score in doen dat berekend is.
+			} else if (curObjective.currentScore != 0) {
+				//end objective event
+				//Score.Instance.AddScore (curObjective.currentScore);
+				if(ObjectiveFinished != null){
+					ObjectiveFinished(curObjective.currentScore); // in currentScore moet de score staan die berekend is aan de hand van alle multi's en all.
+				}
+				curObjective.ResetCurrentScore ();
+			}
+		} else {
+			if(!_allNonObjectivesInScreen.Contains(objectInfo.gObject)){
+				_allNonObjectivesInScreen.Add(objectInfo.gObject);
 			}
 		}
 	}
 
-	void StoppedFilmingObject(Camera cam, GameObject gObject){
-		if (GetObjectiveByName (gObject.name) != null) {
-			Objective curObjective = GetObjectiveByName (gObject.name);
+	public void StoppedFilmingObject(ObjectViewInfo objectInfo){
+		if (GetObjectiveByName (objectInfo.gObject.name) != null) {
+			Objective curObjective = GetObjectiveByName (objectInfo.gObject.name);
 			if (!curObjective.completed) {
-				curObjective.ResetFilmObjective();
+				curObjective.ResetFilmObjective ();
+			}
+		} else {
+			if(_allNonObjectivesInScreen.Contains(objectInfo.gObject)){
+				_allNonObjectivesInScreen.Remove(objectInfo.gObject);
 			}
 		}
 	}
@@ -65,9 +96,7 @@ public class ObjectiveList : MonoBehaviour {
 	void CreateObjective(string name, float baseScore, float timeToFilmInSeconds){
 		Objective objective = new Objective (name, baseScore, timeToFilmInSeconds, this);
 	}
-
-
-
+	
 	// list modifications 
 
 	public void AddedObjective(Objective objective){
