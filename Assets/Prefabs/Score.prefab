@@ -32,8 +32,8 @@ MonoBehaviour:
   m_Material: {fileID: 0}
   m_Color: {r: .196078435, g: .196078435, b: .196078435, a: 1}
   m_FontData:
-    m_Font: {fileID: 10102, guid: 0000000000000000e000000000000000, type: 0}
-    m_FontSize: 64
+    m_Font: {fileID: 12800000, guid: 3b71a2027e1f94c26bd1d3195fc8954e, type: 3}
+    m_FontSize: 300
     m_FontStyle: 0
     m_BestFit: 0
     m_MinSize: 10
@@ -56,6 +56,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   TextPlus: {fileID: 165326, guid: 762644bcf92604ac799f2aa602af2320, type: 2}
+  TotalScore: {fileID: 0}
 --- !u!222 &22282978
 CanvasRenderer:
   m_ObjectHideFlags: 1
@@ -74,10 +75,10 @@ RectTransform:
   m_Children: []
   m_Father: {fileID: 0}
   m_RootOrder: 0
-  m_AnchorMin: {x: 0, y: 1}
-  m_AnchorMax: {x: 0, y: 1}
-  m_AnchoredPosition: {x: 116.900002, y: -74.1000061}
-  m_SizeDelta: {x: 233.800003, y: 148.200012}
+  m_AnchorMin: {x: .5, y: .5}
+  m_AnchorMax: {x: .5, y: .5}
+  m_AnchoredPosition: {x: 13, y: -1}
+  m_SizeDelta: {x: 1729, y: 927}
   m_Pivot: {x: .5, y: .5}
 --- !u!1001 &100100000
 Prefab:
