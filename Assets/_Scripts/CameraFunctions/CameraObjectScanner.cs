@@ -8,18 +8,27 @@ public class CameraObjectScanner : MonoBehaviour {
 	public static int NON_CONTAINTING = 1236664321;
 
 	Camera thisCamera;
+	CameraScoreRecord recorder;
+
 
 	//List<GameObject> _allVisableObjects = new List<GameObject>(){};
 	List<ObjectViewInfo> _objectsViewInfoList = new List<ObjectViewInfo>(){};
 
 	void Start(){
 		thisCamera = GetComponent<Camera> ();
+		
+		if (GetComponent<CameraScoreRecord> () != null) {
+			recorder = GetComponent<CameraScoreRecord>();
+		}
 	}
-	/*
-	void Update(){
-		GetObjectBoundInViewPercentage(GameObject.Find("Cube")); // For Debugging! Will later be called through object
 
-	}*/
+	void Update(){
+		if(recorder != null && recorder.recording){
+			for(int i = _objectsViewInfoList.Count - 1; i >= 0; i--){
+				recorder.Record(_objectsViewInfoList[i]);
+			}
+		}
+	}
 
 	public void StartSeeingObject(GameObject obj){
 		//_allVisableObjects.Add (obj);
@@ -28,23 +37,26 @@ public class CameraObjectScanner : MonoBehaviour {
 	}
 
 	public void SeeingObject(GameObject obj){
-		GetAllVisibleObjectsSurfacesByOverlap (_objectsViewInfoList);
+		if (recorder == null || recorder.recording) {
 
-		float distance = Vector3.Distance(obj.transform.position, transform.position); 
-		Vector3 rightestPoint;
-		Vector3 highestPoint;
-		float width = RendererExtensions.GetPerspectiveWidth(obj.GetComponent<Collider>(), thisCamera, out rightestPoint);
-		float height = RendererExtensions.GetPerspectiveHeigth(obj.GetComponent<Collider>(), thisCamera, out highestPoint);
-		Vector2 center = RendererExtensions.GetPerspectiveCenterOfObject(highestPoint, rightestPoint, width, height);
+			float distance = Vector3.Distance (obj.transform.position, transform.position); 
+			Vector3 rightestPoint;
+			Vector3 highestPoint;
+			float width = RendererExtensions.GetPerspectiveWidth (obj.GetComponent<Collider> (), thisCamera, out rightestPoint);
+			float height = RendererExtensions.GetPerspectiveHeigth (obj.GetComponent<Collider> (), thisCamera, out highestPoint);
+			Vector2 center = RendererExtensions.GetPerspectiveCenterOfObject (highestPoint, rightestPoint, width, height);
 		
-		ObjectViewInfo objInfo = new ObjectViewInfo (obj,distance,GetObjectBoundInViewPercentage(obj),width,height,center); // TODO Give screen perspective width and height! 
-		int indexObject = getIndexInfoListObj (obj);
-		if (indexObject != NON_CONTAINTING) {
-			_objectsViewInfoList [indexObject] = objInfo;
-		} else {
-			_objectsViewInfoList.Add (objInfo);
+			ObjectViewInfo objInfo = new ObjectViewInfo (obj, distance, GetObjectBoundInViewPercentage (obj), width, height, center); // TODO Give screen perspective width and height! 
+			objInfo.coverData = GetAllVisibleObjectsSurfacesByOverlap (_objectsViewInfoList) [obj];
+
+			int indexObject = getIndexInfoListObj (obj);
+			if (indexObject != NON_CONTAINTING) {
+				_objectsViewInfoList [indexObject] = objInfo;
+			} else {
+				_objectsViewInfoList.Add (objInfo);
+			}
+			//Debug.Log (objInfo.pivot + " w, " + objInfo.widthObject + " h, " + objInfo.heightObject + " %, " + objInfo.percentageInViewObject + " ||, " + GetAllVisibleObjectsSurfacesByOverlap (_objectsViewInfoList) [obj]);
 		}
-		Debug.Log (objInfo.pivot +" w, "+ objInfo.widthObject + " h, " + objInfo.heightObject + " %, " + objInfo.percentageInViewObject +" ||, "+ GetAllVisibleObjectsSurfacesByOverlap(_objectsViewInfoList)[obj]);
 	}
 
 	public void StopSeeingObject(GameObject obj){

@@ -38,7 +38,6 @@ public class Score : MonoBehaviour {
 		
 		for (int i = 0; i < 10; i++)
 		{
-			print("dsfsd");
 			GameObject o = Instantiate(TextPlus);
 			Text txt = o.GetComponent<Text>();
 			txt.transform.SetParent(transform.parent);

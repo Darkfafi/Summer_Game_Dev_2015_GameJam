@@ -9,6 +9,7 @@ public class ObjectViewInfo {
 	private float _distanceObject;
 	private Vector2 _pivot;
 	private float _percentageInViewObject;
+	private float _coverData = float.NaN;
 
 	public ObjectViewInfo(GameObject gameObject, float distance, float percentageInView,float widthObj, float heightObj,Vector2 pivotPosition){
 		_gObject = gameObject;
@@ -19,6 +20,11 @@ public class ObjectViewInfo {
 
 		_distanceObject = distance;
 		_percentageInViewObject = percentageInView;
+	}
+
+	public float coverData{
+		get{return _coverData;}
+		set{_coverData = value;}
 	}
 
 	public Vector2 pivot{

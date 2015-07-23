@@ -12,4 +12,11 @@ public class CameraScoreRecord : MonoBehaviour {
 	public bool recording{
 		get{return _recording;}
 	}
+
+	public void Record(ObjectViewInfo objInfo){
+		if (_recording) {
+			GameObject.Find("ScoreText").GetComponent<Score>().AddScore(objInfo.coverData);
+			Debug.Log(objInfo.coverData);
+		}
+	}
 }
