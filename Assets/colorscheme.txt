@@ -1,0 +1,11 @@
+fb6025	Oranje		accenten, geactiveerde componenten
+
+e7e7e2	Gebroken wit	achtergrond dynamische tekstvelden
+
+555555	Grijs		actief tabblad achtergrond
+
+334833	Donkergroen	inactief tabblad achtergrond
+
+999999	Lichtgrijs	inactief tabblad text
+
+2b2b2b	Donkergrijs	achtergrond, inactieve tekst

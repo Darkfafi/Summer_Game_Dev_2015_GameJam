@@ -12,7 +12,7 @@ public enum BatteryState
 	RED
 }
 public class BatteryManager : MonoBehaviour {
-	private float m_fBatteryTimeTotal = 10;
+	private float m_fBatteryTimeTotal = 60;
 	private float m_fBatteryTimeLeft;
 	private float m_fBatteryPercentage;
 
@@ -100,7 +100,7 @@ public class BatteryManager : MonoBehaviour {
 			GetComponent<Image>().sprite = m_lBatterySprites[0];
 		}
 
-		print(m_eBatteryState+", "+m_fBatteryPercentage);
+		//print(m_eBatteryState+", "+m_fBatteryPercentage);
 		StartCoroutine(SecondTick());
 	}
 }
