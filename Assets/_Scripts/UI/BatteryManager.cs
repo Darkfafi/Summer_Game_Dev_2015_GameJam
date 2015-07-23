@@ -22,6 +22,7 @@ public class BatteryManager : MonoBehaviour {
 	private BatteryState m_eBatteryState = BatteryState.GREEN;
 	
 	public bool IsRealBattery = true;
+    private bool _hasPlayed = false;
 
 	// Use this for initialization
 	void Start ()
@@ -56,9 +57,10 @@ public class BatteryManager : MonoBehaviour {
 		else if (m_fBatteryPercentage <= 0.1f) 
 		{
 			m_eBatteryState = BatteryState.RED;
-			if(IsRealBattery)
+			if(IsRealBattery && !_hasPlayed)
 			{
 				SoundManager.Instance.PlaySound(SoundType.BatteryEmpty);
+                _hasPlayed = true;
 			}
 			GetComponent<Image>().sprite = BatterySprites[9];
 		}
