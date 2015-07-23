@@ -28,7 +28,10 @@ public class DirectorCameraManager : MonoBehaviour {
 	{
 		if (Input.GetButtonDown("Jump")) {
 			SwitchCamera();
-			Score.Instance.AddScore(Random.Range(300, 600));
+			Score.Instance.AddScore(100);
+		}
+		if (Input.GetButtonDown("Fire1")) {
+			Score.Instance.PushTotalScore(100);
 		}
 	}
 
