@@ -74,10 +74,10 @@ RectTransform:
   m_Children: []
   m_Father: {fileID: 0}
   m_RootOrder: 0
-  m_AnchorMin: {x: .5, y: .5}
-  m_AnchorMax: {x: .5, y: .5}
-  m_AnchoredPosition: {x: -117, y: 37.4000015}
-  m_SizeDelta: {x: 233.800003, y: 148.199997}
+  m_AnchorMin: {x: 0, y: 1}
+  m_AnchorMax: {x: 0, y: 1}
+  m_AnchoredPosition: {x: 116.900002, y: -74.1000061}
+  m_SizeDelta: {x: 233.800003, y: 148.200012}
   m_Pivot: {x: .5, y: .5}
 --- !u!1001 &100100000
 Prefab:

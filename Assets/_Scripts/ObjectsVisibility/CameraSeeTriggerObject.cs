@@ -4,7 +4,7 @@ using System.Collections.Generic;
 public class CameraSeeTriggerObject : MonoBehaviour { 
 
 	public delegate void NonGivingDelegate();
-	public delegate void CameraGivenDelegate(Camera curCam);
+	public delegate void CameraGivenDelegate(Camera curCam,GameObject objectSeen);
 
 	public event CameraGivenDelegate OnCameraEnter;
 	public event CameraGivenDelegate OnCameraStay;
@@ -32,7 +32,7 @@ public class CameraSeeTriggerObject : MonoBehaviour {
 		}
 		_camerasThatSeeObject.Add(cam);
 		if(OnCameraEnter != null){
-			OnCameraEnter (cam);
+			OnCameraEnter (cam,this.gameObject);
 		}
 	}
 
@@ -41,7 +41,7 @@ public class CameraSeeTriggerObject : MonoBehaviour {
 			cam.GetComponent<CameraObjectScanner>().SeeingObject(this.gameObject);
 		}
 		if (OnCameraStay != null) {
-			OnCameraStay (cam);
+			OnCameraStay (cam,this.gameObject);
 		}
 	}
 
@@ -51,7 +51,7 @@ public class CameraSeeTriggerObject : MonoBehaviour {
 		}
 		_camerasThatSeeObject.Remove(cam);
 		if(OnCameraExit != null){
-			OnCameraExit (cam);
+			OnCameraExit (cam,this.gameObject);
 		}
 	}
 
@@ -62,7 +62,7 @@ public class CameraSeeTriggerObject : MonoBehaviour {
 				result = true;
 				break;
 			}
-			Debug.Log(i);
+			//Debug.Log(i);
 		}
 		return result;
 	}

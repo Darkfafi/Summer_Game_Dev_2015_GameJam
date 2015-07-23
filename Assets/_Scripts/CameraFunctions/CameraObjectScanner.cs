@@ -47,7 +47,7 @@ public class CameraObjectScanner : MonoBehaviour {
 			Vector2 center = RendererExtensions.GetPerspectiveCenterOfObject (highestPoint, rightestPoint, width, height);
 		
 			ObjectViewInfo objInfo = new ObjectViewInfo (obj, distance, GetObjectBoundInViewPercentage (obj), width, height, center); // TODO Give screen perspective width and height! 
-			objInfo.coverData = GetAllVisibleObjectsSurfacesByOverlap (_objectsViewInfoList) [obj];
+
 
 			int indexObject = getIndexInfoListObj (obj);
 			if (indexObject != NON_CONTAINTING) {
@@ -55,6 +55,7 @@ public class CameraObjectScanner : MonoBehaviour {
 			} else {
 				_objectsViewInfoList.Add (objInfo);
 			}
+			objInfo.coverData = GetAllVisibleObjectsSurfacesByOverlap (_objectsViewInfoList) [obj];
 			//Debug.Log (objInfo.pivot + " w, " + objInfo.widthObject + " h, " + objInfo.heightObject + " %, " + objInfo.percentageInViewObject + " ||, " + GetAllVisibleObjectsSurfacesByOverlap (_objectsViewInfoList) [obj]);
 		}
 	}

@@ -3,7 +3,7 @@ using UnityEngine.UI;
 using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
-using UnityEditor;
+//using UnityEditor;
 
 public enum BatteryState
 {
@@ -23,7 +23,7 @@ public class BatteryManager : MonoBehaviour {
 	// Use this for initialization
 	void Start ()
 	{
-		string _sSpriteSheet = AssetDatabase.GetAssetPath(BatteryTexture);
+		//string _sSpriteSheet = AssetDatabase.GetAssetPath(BatteryTexture);
 		//  BatterySprites = new List<Sprite>();
 		//  BatterySprites = AssetDatabase.LoadAllAssetsAtPath(_sSpriteSheet).OfType<Sprite>().ToList();
 
