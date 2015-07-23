@@ -1,0 +1,102 @@
+fileFormatVersion: 2
+guid: 9af0e84f5aed29c4c8c87c14b15b6151
+timeCreated: 1437642112
+licenseType: Free
+ModelImporter:
+  serializedVersion: 18
+  fileIDToRecycleName:
+    100000: Canopy_a001
+    100002: Canopy_a002
+    100004: Canopy_B
+    100006: Canopy_B001
+    100008: Canopy_c
+    100010: Canopy_c001
+    100012: Tree_Base001
+    100014: //RootNode
+    400000: Canopy_a001
+    400002: Canopy_a002
+    400004: Canopy_B
+    400006: Canopy_B001
+    400008: Canopy_c
+    400010: Canopy_c001
+    400012: Tree_Base001
+    400014: //RootNode
+    2300000: Canopy_a001
+    2300002: Canopy_a002
+    2300004: Canopy_B
+    2300006: Canopy_B001
+    2300008: Canopy_c
+    2300010: Canopy_c001
+    2300012: Tree_Base001
+    3300000: Canopy_a001
+    3300002: Canopy_a002
+    3300004: Canopy_B
+    3300006: Canopy_B001
+    3300008: Canopy_c
+    3300010: Canopy_c001
+    3300012: Tree_Base001
+    4300000: Tree_Base001
+    4300002: Canopy_c
+    4300004: Canopy_a001
+    4300006: Canopy_B
+    4300008: Canopy_B001
+    4300010: Canopy_a002
+    4300012: Canopy_c001
+  materials:
+    importMaterials: 1
+    materialName: 0
+    materialSearch: 1
+  animations:
+    legacyGenerateAnimations: 4
+    bakeSimulation: 0
+    optimizeGameObjects: 0
+    motionNodeName: 
+    animationCompression: 1
+    animationRotationError: .5
+    animationPositionError: .5
+    animationScaleError: .5
+    animationWrapMode: 0
+    extraExposedTransformPaths: []
+    clipAnimations: []
+    isReadable: 1
+  meshes:
+    lODScreenPercentages: []
+    globalScale: 1
+    meshCompression: 0
+    addColliders: 0
+    importBlendShapes: 1
+    swapUVChannels: 0
+    generateSecondaryUV: 0
+    useFileUnits: 1
+    optimizeMeshForGPU: 1
+    keepQuads: 0
+    weldVertices: 1
+    secondaryUVAngleDistortion: 8
+    secondaryUVAreaDistortion: 15.000001
+    secondaryUVHardAngle: 88
+    secondaryUVPackMargin: 4
+    useFileScale: 1
+  tangentSpace:
+    normalSmoothAngle: 60
+    splitTangentsAcrossUV: 1
+    normalImportMode: 0
+    tangentImportMode: 1
+  importAnimation: 1
+  copyAvatar: 0
+  humanDescription:
+    human: []
+    skeleton: []
+    armTwist: .5
+    foreArmTwist: .5
+    upperLegTwist: .5
+    legTwist: .5
+    armStretch: .0500000007
+    legStretch: .0500000007
+    feetSpacing: 0
+    rootMotionBoneName: 
+  lastHumanDescriptionAvatarSource: {instanceID: 0}
+  animationType: 0
+  additionalBone: 0
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 
