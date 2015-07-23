@@ -9,7 +9,6 @@ public class RendererExtensions : MonoBehaviour {
         //Code for checking whether the object is rendered within the "Bounding box" of the camera
 
 		Plane[] planes = GeometryUtility.CalculateFrustumPlanes(camera);
-
 		//Debug.Log (planes);
 		//return 
         bool canBeVisible = GeometryUtility.TestPlanesAABB(planes, collider.bounds);
@@ -214,7 +213,7 @@ public class RendererExtensions : MonoBehaviour {
             mostLeft = camera.WorldToViewportPoint(originalLeft);
             mostRight = camera.WorldToViewportPoint(originalRight);
 
-//            Debug.Log("weird");
+            Debug.Log("weird");
         }
         //TODO fix bug with the viewpoint switching and the code below is not correct anymore somehow
         
@@ -247,7 +246,7 @@ public class RendererExtensions : MonoBehaviour {
         //Debug.Log(camera.pixelRect);
         
         float width = camera.ViewportToScreenPoint(mostRight).x - camera.ViewportToScreenPoint(mostLeft).x;
-//        Debug.Log(width);
+        Debug.Log(width);
         rightestViewPoint = camera.ViewportToScreenPoint(mostRight);
         return width;  //Total width can be gotten with pixelwidth of camera.
 
@@ -310,9 +309,9 @@ public class RendererExtensions : MonoBehaviour {
         {
             lowestPoint.y = 0;
         }
-  //      Debug.Log("lowest" + lowestPoint);
+        Debug.Log("lowest" + lowestPoint);
         float height = camera.ViewportToScreenPoint(highestPoint).y - camera.ViewportToScreenPoint(lowestPoint).y;
- //       Debug.Log("heigth" + height);
+        Debug.Log("heigth" + height);
 
         highestViewPoint = camera.ViewportToScreenPoint(highestPoint);
         return height;
@@ -321,6 +320,8 @@ public class RendererExtensions : MonoBehaviour {
     public static Vector2 GetPerspectiveCenterOfObject(Vector3 highestPoint, Vector3 rightestPoint, float width, float height)
     {
         Vector2 result = new Vector2(rightestPoint.x - (width/2), highestPoint.y - (height/2)); 
+        Debug.Log("Center" + result);
+        //Debug.DrawLine(Vector3.zero, Camera.allCameras[0].ScreenToWorldPoint(new Vector3(result.x, result.y, rightestPoint.z)));
         return result;
     }
 
