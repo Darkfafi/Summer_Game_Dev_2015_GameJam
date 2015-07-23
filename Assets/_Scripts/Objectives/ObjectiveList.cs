@@ -46,7 +46,6 @@ public class ObjectiveList : MonoBehaviour {
 	IEnumerator FilmingObjectDelayed(ObjectViewInfo objectInfo){
 		yield return new WaitForSeconds (_waitForScoreInSeconds);
 		_filmDelaying = false;
-		Debug.Log (objectInfo);
 
 		if (GetObjectiveByName (objectInfo.gObject.name) != null) {
 			Objective curObjective = GetObjectiveByName (objectInfo.gObject.name);
@@ -54,7 +53,10 @@ public class ObjectiveList : MonoBehaviour {
 			curObjective.AddFilmObjectTime (_waitForScoreInSeconds); // --> 1 second added per second <--- old
 
 			if (!curObjective.completed) {
-				curObjective.AddScoreObject (curObjective.baseScore + (_allNonObjectivesInScreen.Count * 50)); // TODO goede score in doen dat berekend is.
+				float scoreObject = curObjective.baseScore + (_allNonObjectivesInScreen.Count * 50);
+				curObjective.AddScoreObject (scoreObject); // TODO goede score in doen dat berekend is.
+				Score.Instance.AddScore(scoreObject);
+
 			} else if (curObjective.currentScore != 0) {
 				//end objective event
 				//Score.Instance.AddScore (curObjective.currentScore);
