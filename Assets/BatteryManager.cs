@@ -3,7 +3,7 @@ using UnityEngine.UI;
 using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
-using UnityEditor;
+//using UnityEditor;
 
 public enum BatteryState
 {
@@ -19,11 +19,13 @@ public class BatteryManager : MonoBehaviour {
 	public Texture2D BatteryTexture;
 	public List<Sprite> BatterySprites;
 	private BatteryState m_eBatteryState = BatteryState.GREEN;
+	
+	public bool IsRealBattery = true;
 
 	// Use this for initialization
 	void Start ()
 	{
-		string _sSpriteSheet = AssetDatabase.GetAssetPath(BatteryTexture);
+		//string _sSpriteSheet = AssetDatabase.GetAssetPath(BatteryTexture);
 		//  BatterySprites = new List<Sprite>();
 		//  BatterySprites = AssetDatabase.LoadAllAssetsAtPath(_sSpriteSheet).OfType<Sprite>().ToList();
 
@@ -45,18 +47,27 @@ public class BatteryManager : MonoBehaviour {
 		m_fBatteryPercentage = m_fBatteryTimeLeft / m_fBatteryTimeTotal;
 		if (m_fBatteryTimeLeft == 0f) 
 		{
-			//end game logic
+			if(IsRealBattery)
+			{
+				//end game logic
+			}
 		}
 		else if (m_fBatteryPercentage <= 0.1f) 
 		{
 			m_eBatteryState = BatteryState.RED;
-			SoundManager.Instance.PlaySound(SoundType.BatteryEmpty);
+			if(IsRealBattery)
+			{
+				SoundManager.Instance.PlaySound(SoundType.BatteryEmpty);
+			}
 			GetComponent<Image>().sprite = BatterySprites[9];
 		}
 		else if(m_fBatteryPercentage <= 0.2f) 
 		{
 			m_eBatteryState = BatteryState.YELLOW;
-			SoundManager.Instance.PlaySound(SoundType.BatteryLow);
+			if(IsRealBattery)
+			{
+				SoundManager.Instance.PlaySound(SoundType.BatteryLow);
+			}
 			GetComponent<Image>().sprite = BatterySprites[8];
 		}
 		else if(m_fBatteryPercentage <= 0.3f) 
