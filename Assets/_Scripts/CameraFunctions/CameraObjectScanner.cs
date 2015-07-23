@@ -93,7 +93,7 @@ public class CameraObjectScanner : MonoBehaviour {
 
 		float percentageInView = ((otherObj.transform.position.y) + (otherObj.GetComponent<Renderer> ().bounds.size.y)/2) / (Mathf.Abs(bottomFrustumHeight) + (frustumHeight)); 
 
-		Debug.Log (otherObj.GetComponent<Renderer>().bounds.size.y + " " +frustumHeight + " ,% =  " + percentageInView);
+	//	Debug.Log (otherObj.GetComponent<Renderer>().bounds.size.y + " " +bottomFrustumHeight + " ,% =  " + percentageInView);
 		return percentageInView;
 	}
 

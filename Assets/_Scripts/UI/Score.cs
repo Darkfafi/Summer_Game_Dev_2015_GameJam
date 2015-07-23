@@ -22,18 +22,11 @@ public class Score : MonoBehaviour {
 	private float m_fCurrentScore = 0;
 	private float m_fNewCurrentScore = 0;
 	
-	private float m_fMultiplier = 0;
+	private float m_fMultiplier = 1;
 	
 	public GameObject TotalScore;
 	private float m_fTotalScore = 0;
 	private float m_fNewTotalScore = 0;
-	
-	public float CurrentScore
-	{
-		get {
-			return m_fNewCurrentScore;
-		}
-	}
 	
 	public static Score Instance
 	{
@@ -151,6 +144,7 @@ public class Score : MonoBehaviour {
 	public void AddScore(float _fScoreToAdd)
 	{
 		//TODO check multipliers, add score to left only when objective is done
+
 		m_fMultiplier = 0;
 		
 		if (ScoreMultiplier.Instance.Multipliers.Count == 0)
@@ -231,7 +225,7 @@ public class Score : MonoBehaviour {
 			m_iScoreTotalCounter = 0;
 		}
 		
-		m_fNewCurrentScore -= _fScoreToPush;
+		//m_fNewCurrentScore -= _fScoreToPush;
 	}
 	
 	public float ConvertScore(float _fScore)
