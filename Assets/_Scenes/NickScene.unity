@@ -767,17 +767,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   BatteryTexture: {fileID: 2800000, guid: 36ed6d736cfba4a958862c54a31253a2, type: 3}
-  m_lBatterySprites:
-  - {fileID: 21300000, guid: 36ed6d736cfba4a958862c54a31253a2, type: 3}
-  - {fileID: 21300002, guid: 36ed6d736cfba4a958862c54a31253a2, type: 3}
-  - {fileID: 21300004, guid: 36ed6d736cfba4a958862c54a31253a2, type: 3}
-  - {fileID: 21300006, guid: 36ed6d736cfba4a958862c54a31253a2, type: 3}
-  - {fileID: 21300008, guid: 36ed6d736cfba4a958862c54a31253a2, type: 3}
-  - {fileID: 21300010, guid: 36ed6d736cfba4a958862c54a31253a2, type: 3}
-  - {fileID: 21300012, guid: 36ed6d736cfba4a958862c54a31253a2, type: 3}
-  - {fileID: 21300014, guid: 36ed6d736cfba4a958862c54a31253a2, type: 3}
-  - {fileID: 21300016, guid: 36ed6d736cfba4a958862c54a31253a2, type: 3}
-  - {fileID: 21300018, guid: 36ed6d736cfba4a958862c54a31253a2, type: 3}
+  BatterySprites: []
 --- !u!1 &1066050486
 GameObject:
   m_ObjectHideFlags: 0
