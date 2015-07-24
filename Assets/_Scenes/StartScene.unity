@@ -538,7 +538,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   isEnd: 0
-  dualStartGameScript: {fileID: 0}
+  dualStartGameScript: {fileID: 781118729}
   endSceneManager: {fileID: 0}
 --- !u!1 &676930092
 GameObject:
@@ -551,7 +551,6 @@ GameObject:
   - 222: {fileID: 676930097}
   - 114: {fileID: 676930096}
   - 114: {fileID: 676930095}
-  - 114: {fileID: 676930094}
   m_Layer: 5
   m_Name: Button
   m_TagString: Untagged
@@ -577,20 +576,6 @@ RectTransform:
   m_AnchoredPosition: {x: 7.95767046e-05, y: -37.7000008}
   m_SizeDelta: {x: 189.800003, y: 30}
   m_Pivot: {x: .5, y: .5}
---- !u!114 &676930094
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_PrefabParentObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 0}
-  m_GameObject: {fileID: 676930092}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 1d9cabeec5a7a914b965740ef72a6c7a, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  isEnd: 0
-  dualStartGameScript: {fileID: 0}
-  endSceneManager: {fileID: 0}
 --- !u!114 &676930095
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -670,6 +655,45 @@ CanvasRenderer:
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 0}
   m_GameObject: {fileID: 676930092}
+--- !u!1 &781118728
+GameObject:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  serializedVersion: 4
+  m_Component:
+  - 4: {fileID: 781118730}
+  - 114: {fileID: 781118729}
+  m_Layer: 0
+  m_Name: GameController
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!114 &781118729
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 781118728}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 0c38de2657639c64287b651dae251a15, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+--- !u!4 &781118730
+Transform:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 781118728}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: -70.6335983, y: 33.3829689, z: 103.929688}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_Children: []
+  m_Father: {fileID: 0}
+  m_RootOrder: 5
 --- !u!1 &963640557
 GameObject:
   m_ObjectHideFlags: 0

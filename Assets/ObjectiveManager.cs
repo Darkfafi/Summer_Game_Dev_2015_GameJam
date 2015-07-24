@@ -37,13 +37,14 @@ public class ObjectiveManager : MonoBehaviour {
 	
 	public void ObjectiveUpdate(string _sObjectiveName, float _fProgressPercentage)
 	{
-		GameObject _oObjective = m_dObjectives[_sObjectiveName];
-		m_dObjectives[_sObjectiveName].transform.FindChild("Progress").GetComponent<Slider>().value = _fProgressPercentage;
+		if (m_dObjectives.ContainsKey (_sObjectiveName)) {
+			GameObject _oObjective = m_dObjectives [_sObjectiveName];
+			m_dObjectives [_sObjectiveName].transform.FindChild ("Progress").GetComponent<Slider> ().value = _fProgressPercentage;
 		
-		if (_fProgressPercentage == 1)
-		{
-			m_dObjectives[_sObjectiveName].transform.FindChild("Progress").FindChild("Background").GetComponent<Image>().color = new Color(251f / 256f, 96f / 256f, 37f / 256f);
-			m_dObjectives[_sObjectiveName].transform.FindChild("Label").GetComponent<Text>().color = new Color(251f / 256f, 96f / 256f, 37f / 256f);
+			if (_fProgressPercentage == 1) {
+				m_dObjectives [_sObjectiveName].transform.FindChild ("Progress").FindChild ("Background").GetComponent<Image> ().color = new Color (251f / 256f, 96f / 256f, 37f / 256f);
+				m_dObjectives [_sObjectiveName].transform.FindChild ("Label").GetComponent<Text> ().color = new Color (251f / 256f, 96f / 256f, 37f / 256f);
+			}
 		}
 	}
 	

@@ -9,7 +9,7 @@ public class CameraObjectScanner : MonoBehaviour {
 
 	Camera thisCamera;
 	CameraScoreRecord recorder;
-    public GameObject debug;
+
 
 
 	//List<GameObject> _allVisableObjects = new List<GameObject>(){};
@@ -19,17 +19,16 @@ public class CameraObjectScanner : MonoBehaviour {
 		thisCamera = GetComponent<Camera> (); 
 		
 		if (GetComponent<CameraScoreRecord> () != null) {
-			//recorder = GetComponent<CameraScoreRecord>();
+			recorder = GetComponent<CameraScoreRecord>();
 		}
 	}
 
 	void Update(){
 		if(recorder != null && recorder.recording){
-			for(int i = _objectsViewInfoList.Count - 1; i >= 0; i--){
-				//recorder.Record(_objectsViewInfoList[i]);
-			}
+			//for(int i = _objectsViewInfoList.Count - 1; i >= 0; i--){
+				recorder.Record(_objectsViewInfoList);
+			//}
 		}
-        GetObjectBoundInViewPercentage(debug);
 	}
 
 	public void StartSeeingObject(GameObject obj){
@@ -65,7 +64,7 @@ public class CameraObjectScanner : MonoBehaviour {
 	public void StopSeeingObject(GameObject obj){
 		//_allVisableObjects.Remove (obj);
 		if (recorder == null || recorder.recording) {
-			//recorder.StopSeeingObject(_objectsViewInfoList[getIndexInfoListObj(obj)]);
+			recorder.StopSeeingObject(_objectsViewInfoList[getIndexInfoListObj(obj)]);
 		}
 		if (getIndexInfoListObj (obj) != NON_CONTAINTING) {
 			_objectsViewInfoList.RemoveAt (getIndexInfoListObj (obj));
@@ -88,12 +87,12 @@ public class CameraObjectScanner : MonoBehaviour {
 		float distance = Vector3.Distance(otherObj.transform.position, transform.position);  // afstand tussen jou en het object
 
 		float frustumHeight = 2 * distance * Mathf.Tan(thisCamera.fieldOfView * 0.5f * Mathf.Deg2Rad); // hoogte van je view
+		
+		float bottomFrustumHeight =  transform.position.y - (frustumHeight / 2) + (Mathf.Tan(Mathf.Deg2Rad * (transform.eulerAngles.x)) * distance); // bodem van je view tot het object
 
-		float bottomFrustumHeight =  transform.position.y - (frustumHeight / 2) + (Mathf.Tan(Mathf.Deg2Rad * ( transform.eulerAngles.x)) * distance); // bodem van je view tot het object
+		float percentageInView = ((otherObj.transform.position.y) + (otherObj.GetComponent<Collider> ().bounds.size.y / 2)) / (Mathf.Abs(bottomFrustumHeight) + (frustumHeight)); 
 
-		float percentageInView = ((otherObj.transform.position.y) + (otherObj.GetComponent<Renderer> ().bounds.size.y)/2) / (Mathf.Abs(bottomFrustumHeight) + (frustumHeight)); 
-
-	//	Debug.Log (otherObj.GetComponent<Renderer>().bounds.size.y + " " +bottomFrustumHeight + " ,% =  " + percentageInView);
+		//Debug.Log (otherObj.GetComponent<Renderer>().bounds.size.y + " " +otherObj + " ,% =  " + percentageInView);
 		return percentageInView;
 	}
 
@@ -129,7 +128,7 @@ public class CameraObjectScanner : MonoBehaviour {
 			overLapSurface = new Vector2();
 
 			if(i == 0){
-				allSurfaces.Add(sortedOnDistanceList[i].gObject,sortedOnDistanceList[i].widthObject * sortedOnDistanceList[i].heightObject);
+				allSurfaces.Add(sortedOnDistanceList[i].gObject,1);
 			}else{
 				ObjectViewInfo obj1;
 				ObjectViewInfo obj2;
@@ -153,7 +152,7 @@ public class CameraObjectScanner : MonoBehaviour {
 						}
 
 						if(overLapSurface.x > obj1.widthObject){
-							overLapSurface.x = obj1.widthObject;
+							overLapSurface.x = obj1.widthObject - 0.2f;
 						}
 
 						//Debug.Log((obj1.pivot.y + obj1.heightObject / 2) +" "+ (obj2.pivot.y - obj2.heightObject / 2));
@@ -167,7 +166,7 @@ public class CameraObjectScanner : MonoBehaviour {
 						}
 
 						if(overLapSurface.y > obj1.heightObject){
-							overLapSurface.y = obj1.heightObject;
+							overLapSurface.y = obj1.heightObject - 0.2f;
 						}
 					}
 				}
@@ -175,7 +174,7 @@ public class CameraObjectScanner : MonoBehaviour {
 				float surfaceBlockedObj = overLapSurface.x * overLapSurface.y;
 				float surfaceObj = obj1.widthObject * obj1.heightObject;
 				float surfaceObjVisable = surfaceObj - surfaceBlockedObj;
-				allSurfaces.Add(obj1.gObject, surfaceObjVisable);
+				allSurfaces.Add(obj1.gObject, surfaceObjVisable / surfaceObj);
 			}
 		} 
 		return allSurfaces;
