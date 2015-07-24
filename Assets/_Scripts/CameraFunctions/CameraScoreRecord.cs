@@ -1,5 +1,6 @@
 ﻿using UnityEngine;
 using System.Collections;
+using System.Collections.Generic;
 
 public class CameraScoreRecord : MonoBehaviour {
 
@@ -21,7 +22,7 @@ public class CameraScoreRecord : MonoBehaviour {
 		get{return _recording;}
 	}
 
-	public void Record(ObjectViewInfo objInfo){
+	public void Record(List<ObjectViewInfo> objInfo){
 		if (_recording) {
 			//GameObject.Find("Score").GetComponent<Score>().AddScore(objInfo.coverData);
 			objList.FilmingObject(objInfo);

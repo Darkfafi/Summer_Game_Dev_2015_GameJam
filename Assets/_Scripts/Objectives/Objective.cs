@@ -12,6 +12,11 @@ public class Objective {
 	private float _currentFilmTime = 0;
 	private float _currentScore = 0;
 
+	/*
+	public bool filmDelaying = false;
+	public bool canceled = false;
+	*/
+
 	public Objective(string nameGameobject, float baseScore, float timeToFilmInSeconds, ObjectiveList list){
 		_nameObjectToFilm = nameGameobject;
 		_baseScoreObject = baseScore;
@@ -52,6 +57,7 @@ public class Objective {
 	}
 	public void ResetFilmObjective(){
 		_currentFilmTime = 0;
+		ObjectiveManager.Instance.ObjectiveUpdate (_nameObjectToFilm, _currentFilmTime / _timeToFilmInSeconds);
 		ResetCurrentScore ();
 		_completed = false;
 	}
