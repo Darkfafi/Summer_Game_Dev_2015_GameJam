@@ -40,6 +40,14 @@ public class Score : MonoBehaviour {
 			return m_cInstance; 
 		}
 	}
+	
+	public float GetScore
+	{
+		get
+		{
+			return m_fNewTotalScore; 
+		}
+	}
 
 	// Use this for initialization
 	void Start () 
@@ -85,15 +93,16 @@ public class Score : MonoBehaviour {
 	}
 	
 	// Update is called once per frame
-	void Update ()
+	void FixedUpdate ()
 	{
-		float _fTextScrollSpeed = 0.2f;
+		float _fTextScrollSpeed = 0.15f;
 		foreach (Text txt in m_lScorePlusTextFields)
 		{
 			if (txt.enabled == true)
 			{
 				txt.transform.position = new Vector3(txt.transform.position.x, txt.transform.position.y + _fTextScrollSpeed, txt.transform.position.z);
-				txt.fontSize = (int)Mathf.Lerp(txt.fontSize, m_fScorePlusFontSize, 0.1f);
+                txt.color = new Color(0, 0, 0, txt.color.a - 0.03f);
+                txt.fontSize = (int)Mathf.Lerp(txt.fontSize, m_fScorePlusFontSize, 0.1f);
 				
 				txt.transform.localScale = new Vector3(Mathf.Lerp(txt.transform.localScale.x, 1, 0.5f), 
 					Mathf.Lerp(txt.transform.localScale.y, 1, 0.5f), 0);
@@ -173,9 +182,10 @@ public class Score : MonoBehaviour {
 		//TODO break multiplier stuff
 		_fScoreToAdd = _fScoreToAdd * m_fMultiplier;
 		
-		m_lScorePlusTextFields[m_iScorePlusCounter].transform.position = new Vector3(transform.position.x, transform.position.y + 4, transform.position.z);
+		m_lScorePlusTextFields[m_iScorePlusCounter].transform.position = new Vector3(transform.position.x, transform.position.y + 3, transform.position.z);
 		m_lScorePlusTextFields[m_iScorePlusCounter].enabled = true;
 		m_lScorePlusTextFields[m_iScorePlusCounter].text = "+" + Mathf.Round(_fScoreToAdd);
+		m_lScorePlusTextFields[m_iScorePlusCounter].color = new Color(0,0,0,1);
 		m_lScorePlusTextFields[m_iScorePlusCounter].transform.localScale = Vector3.one * 0.25f;
 		m_lScorePlusTextFields[m_iScorePlusCounter].fontSize = (int)(m_fScorePlusFontSize * 3f);
 		
@@ -192,9 +202,10 @@ public class Score : MonoBehaviour {
 	
 	public void RemoveScore(float _fScoreToRemove)
 	{
-		m_lScoreMinusTextFields[m_iScoreMinusCounter].transform.position = new Vector3(transform.position.x, transform.position.y - 4, transform.position.z);
+		m_lScoreMinusTextFields[m_iScoreMinusCounter].transform.position = new Vector3(transform.position.x, transform.position.y - 3, transform.position.z);
 		m_lScoreMinusTextFields[m_iScoreMinusCounter].enabled = true;
 		m_lScoreMinusTextFields[m_iScoreMinusCounter].text = "-" + Mathf.Round(_fScoreToRemove);
+		m_lScoreMinusTextFields[m_iScoreMinusCounter].color = new Color(0,0,0,1);
 		m_lScoreMinusTextFields[m_iScoreMinusCounter].transform.localScale = Vector3.one * 0.25f;
 		m_lScoreMinusTextFields[m_iScoreMinusCounter].fontSize = (int)(m_fScorePlusFontSize * 3f);
 		
