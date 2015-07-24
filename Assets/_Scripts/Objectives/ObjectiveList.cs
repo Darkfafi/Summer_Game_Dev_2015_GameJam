@@ -41,7 +41,9 @@ public class ObjectiveList : MonoBehaviour {
 		if (!_filmDelaying) {
 			_filmDelaying = true;
 			for(int i = objectInfo.Count - 1; i >= 0; i--){
-				StartCoroutine ("FilmingObjectDelayed", objectInfo[i]);
+				if(objectInfo[i].gObject.tag == "FilmAble"){
+					StartCoroutine ("FilmingObjectDelayed", objectInfo[i]);
+				}
 			}
 		}
 	}
