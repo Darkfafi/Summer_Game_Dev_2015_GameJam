@@ -13,7 +13,7 @@ public enum BatteryState
 }
 
 public class BatteryManager : MonoBehaviour {
-	private float m_fBatteryTimeTotal = 60;
+	private float m_fBatteryTimeTotal = 180;
 	private float m_fBatteryTimeLeft;
 	private float m_fBatteryPercentage;
 
