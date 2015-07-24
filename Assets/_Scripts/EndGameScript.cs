@@ -10,7 +10,7 @@ public class EndGameScript : MonoBehaviour {
         {
             StaticStatScript.highscore = score;
         }
-        //Application.LoadLevel(2);
+        Application.LoadLevel(2);
     }
 
 }

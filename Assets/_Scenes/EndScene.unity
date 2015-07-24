@@ -399,12 +399,13 @@ MonoBehaviour:
   m_OnClick:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 0}
+      - m_Target: {fileID: 1109033017}
         m_MethodName: PressStartToContinue
         m_Mode: 2
         m_Arguments:
           m_ObjectArgument: {fileID: 148417659}
-          m_ObjectArgumentAssemblyTypeName: UnityEngine.UI.Button, UnityEngine.UI
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.UI.Button, UnityEngine.UI,
+            Version=1.0.0.0, Culture=neutral, PublicKeyToken=null
           m_IntArgument: 0
           m_FloatArgument: 0
           m_StringArgument: 
@@ -452,7 +453,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   isEnd: 1
   dualStartGameScript: {fileID: 0}
-  endSceneManager: {fileID: 0}
+  endSceneManager: {fileID: 1109033017}
 --- !u!1 &299846488
 GameObject:
   m_ObjectHideFlags: 0
@@ -633,7 +634,6 @@ MonoBehaviour:
   m_SubmitButton: Submit
   m_CancelButton: Cancel
   m_InputActionsPerSecond: 10
-  m_RepeatDelay: .5
   m_AllowActivationOnMobileDevice: 0
 --- !u!114 &384882657
 MonoBehaviour:
@@ -1093,6 +1093,65 @@ CanvasRenderer:
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 0}
   m_GameObject: {fileID: 1056750164}
+--- !u!1 &1109033016
+GameObject:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  serializedVersion: 4
+  m_Component:
+  - 4: {fileID: 1109033018}
+  - 114: {fileID: 1109033017}
+  - 114: {fileID: 1109033019}
+  m_Layer: 0
+  m_Name: GameObject
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!114 &1109033017
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 1109033016}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 70563ec3f85fd68429e8e192c7ef4810, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  scoreText1: {fileID: 657107294}
+  scoreText2: {fileID: 308939495}
+  highscoreText1: {fileID: 1892323258}
+  highscoreText2: {fileID: 489879917}
+--- !u!4 &1109033018
+Transform:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 1109033016}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: -70.6335983, y: 33.3829689, z: 103.929688}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_Children: []
+  m_Father: {fileID: 0}
+  m_RootOrder: 5
+--- !u!114 &1109033019
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 1109033016}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: d8ae05e1a1e69594c828a4b66b2e62dc, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  screenOneResolution: {x: 1920, y: 1080}
+  screenTwoResolution: {x: 1920, y: 1080}
+  cameraScreenOne: {fileID: 1688929398}
+  cameraScreenTwo: {fileID: 1819945662}
 --- !u!1 &1405680294
 GameObject:
   m_ObjectHideFlags: 0
@@ -1210,7 +1269,6 @@ Camera:
   m_OcclusionCulling: 1
   m_StereoConvergence: 10
   m_StereoSeparation: .0219999999
-  m_StereoMirrorMode: 0
 --- !u!81 &1688929399
 AudioListener:
   m_ObjectHideFlags: 0
@@ -1255,7 +1313,7 @@ GameObject:
   - 222: {fileID: 1814974397}
   - 114: {fileID: 1814974396}
   - 114: {fileID: 1814974395}
-  - 114: {fileID: 1814974394}
+  - 114: {fileID: 1814974398}
   m_Layer: 5
   m_Name: Button2
   m_TagString: Untagged
@@ -1281,20 +1339,6 @@ RectTransform:
   m_AnchoredPosition: {x: 7.95767046e-05, y: -30.0000038}
   m_SizeDelta: {x: 160, y: 30}
   m_Pivot: {x: .5, y: .5}
---- !u!114 &1814974394
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_PrefabParentObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 0}
-  m_GameObject: {fileID: 1814974392}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 1d9cabeec5a7a914b965740ef72a6c7a, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  isEnd: 1
-  dualStartGameScript: {fileID: 0}
-  endSceneManager: {fileID: 0}
 --- !u!114 &1814974395
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1334,12 +1378,13 @@ MonoBehaviour:
   m_OnClick:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 0}
+      - m_Target: {fileID: 1109033017}
         m_MethodName: PressStartToContinue
         m_Mode: 2
         m_Arguments:
           m_ObjectArgument: {fileID: 1814974395}
-          m_ObjectArgumentAssemblyTypeName: UnityEngine.UI.Button, UnityEngine.UI
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.UI.Button, UnityEngine.UI,
+            Version=1.0.0.0, Culture=neutral, PublicKeyToken=null
           m_IntArgument: 0
           m_FloatArgument: 0
           m_StringArgument: 
@@ -1374,6 +1419,20 @@ CanvasRenderer:
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 0}
   m_GameObject: {fileID: 1814974392}
+--- !u!114 &1814974398
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 1814974392}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 04dc59358606c014ab73950a267c4910, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  isEnd: 1
+  dualStartGameScript: {fileID: 0}
+  endSceneManager: {fileID: 1109033017}
 --- !u!1 &1819945658
 GameObject:
   m_ObjectHideFlags: 0
@@ -1438,7 +1497,6 @@ Camera:
   m_OcclusionCulling: 1
   m_StereoConvergence: 10
   m_StereoSeparation: .0219999999
-  m_StereoMirrorMode: 0
 --- !u!4 &1819945663
 Transform:
   m_ObjectHideFlags: 0

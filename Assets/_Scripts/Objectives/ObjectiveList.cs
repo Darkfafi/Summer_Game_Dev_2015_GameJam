@@ -9,6 +9,7 @@ public class ObjectiveList : MonoBehaviour {
 
 	public delegate void ScoreContainingDelegate(float score);
 	public event ScoreContainingDelegate ObjectiveFinished;
+    public EndGameScript endGameScript;
 
 	private List<Objective> _objectivesList = new List<Objective>(){};
 	private GameObject[] _listOfFilmableObjects;
@@ -98,7 +99,8 @@ public class ObjectiveList : MonoBehaviour {
 	}
 
 	void ShowEndScreen(){
-
+        int finalScore = Mathf.RoundToInt(Score.Instance.GetScore);
+        endGameScript.GameOver(finalScore);
 	}
 
 	public void StoppedFilmingObject(ObjectViewInfo objectInfo){

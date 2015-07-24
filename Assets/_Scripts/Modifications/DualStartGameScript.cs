@@ -17,8 +17,8 @@ public class DualStartGameScript : MonoBehaviour {
         if (playersConfirmed >= 2)
         {
             //Do stuff when both players start the game
-            //Application.LoadLevel(1);
-            Debug.Log("Starting Game");
+            Application.LoadLevel(1);
+            //Debug.Log("Starting Game");
         }
     }
 }
