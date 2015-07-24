@@ -144,7 +144,6 @@ public class Score : MonoBehaviour {
 	public void AddScore(float _fScoreToAdd)
 	{
 		//TODO check multipliers, add score to left only when objective is done
-
 		m_fMultiplier = 0;
 		
 		if (ScoreMultiplier.Instance.Multipliers.Count == 0)

@@ -30,9 +30,10 @@ public class DirectorCameraManager : MonoBehaviour {
 			SwitchCamera();
 			//Score.Instance.AddScore(100);
 		}
+		/*
 		if (Input.GetButtonDown("Fire1")) {
 			//Score.Instance.PushTotalScore(100);
-		}
+		}*/
 	}
 
 	private void SwitchCamera ()

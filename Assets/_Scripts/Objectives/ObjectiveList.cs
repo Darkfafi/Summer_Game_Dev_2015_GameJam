@@ -27,14 +27,15 @@ public class ObjectiveList : MonoBehaviour {
 
 
 		}*/
-		//CreateObjective ("DomTower",100,5);
-        CreateObjective("NoordBrug", 100, 10);
-        CreateObjective("HoofdBrug", 100, 10);
-        CreateObjective("ZuidBrug", 100, 10);
-        CreateObjective("StadHuis", 100, 10);
-        CreateObjective("LoempiaKraam", 100, 10);
-        CreateObjective("DomToren", 100, 10);
-        CreateObjective("WinkelVanSinkel", 150, 10);
+
+		CreateObjective ("NoordBrug",100,5);
+		CreateObjective ("HoofdBrug", 100, 5);
+		CreateObjective ("ZuidBrug", 20, 10);
+		CreateObjective ("StadHuis",100,5);
+		CreateObjective ("LoempiaKraam", 100, 5);
+		CreateObjective ("DomToren", 20, 10);
+		CreateObjective ("WinkelVanSinkel", 20, 10);
+
 	}
 
 	public void FilmingObject(List<ObjectViewInfo> objectInfo){
@@ -55,12 +56,13 @@ public class ObjectiveList : MonoBehaviour {
 	IEnumerator FilmingObjectDelayed(ObjectViewInfo objectInfo){
 		yield return new WaitForSeconds (_waitForScoreInSeconds);
 		_filmDelaying = false;
-
+		//Debug.Log(GetObjectiveByName (objectInfo.gObject.name).name);
 		if (GetObjectiveByName (objectInfo.gObject.name) != null && !GetObjectiveByName(objectInfo.gObject.name).completed) { //Als het een objective is en niet gecomplete
 			Objective curObjective = GetObjectiveByName (objectInfo.gObject.name);
 
 			curObjective.AddFilmObjectTime (_waitForScoreInSeconds);
 			if (!curObjective.completed) {
+
 				float scoreObject = (curObjective.baseScore * objectInfo.coverData + (_allNonObjectivesInScreen.Count * 20));
 				Score.Instance.AddScore(scoreObject);
 				curObjective.AddScoreObject (Score.Instance.ConvertScore(scoreObject));
@@ -68,7 +70,7 @@ public class ObjectiveList : MonoBehaviour {
 				if(ObjectiveFinished != null){
 					ObjectiveFinished(curObjective.currentScore);
 					if(AllObjectivesComplete()){
-						Invoke("ShowEndScreen",3);
+						Invoke("ShowEndScreen",5);
 					}
 				}
 				curObjective.ResetCurrentScore ();

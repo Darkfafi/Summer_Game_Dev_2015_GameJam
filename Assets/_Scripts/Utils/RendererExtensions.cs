@@ -87,7 +87,7 @@ public class RendererExtensions : MonoBehaviour {
                 //Debug.Log(collider.gameObject);
                 if (hitInfo.collider.gameObject.Equals(collider.gameObject))
                 {
-                   // Debug.DrawRay(camera.transform.position, newCoor - camera.transform.position, Color.green, 0.5f);
+                   	Debug.DrawRay(camera.transform.position, newCoor - camera.transform.position, Color.green, 0.5f);
                     //Debug.Log(hitInfo.collider.gameObject + " Coor: " + newCoor);
                     hits++;
                     //TODO remove debug this
