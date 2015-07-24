@@ -32,44 +32,40 @@ public class ObjectiveList : MonoBehaviour {
 		CreateObjective ("Stand", 20, 10);
 	}
 
-
-	void StartedFilmingObject(Camera cam, GameObject gObject){
-
-	}
-
 	public void FilmingObject(List<ObjectViewInfo> objectInfo){
 		if (!_filmDelaying) {
-			_filmDelaying = true;
 			for(int i = objectInfo.Count - 1; i >= 0; i--){
+				Debug.Log(objectInfo[i].gObject);
 				if(objectInfo[i].gObject.tag == "FilmAble"){
+					if(!_filmDelaying){
+						_filmDelaying = true;
+					}
 					StartCoroutine ("FilmingObjectDelayed", objectInfo[i]);
 				}
 			}
 		}
+
 	}
 
 	IEnumerator FilmingObjectDelayed(ObjectViewInfo objectInfo){
 		yield return new WaitForSeconds (_waitForScoreInSeconds);
 		_filmDelaying = false;
-		//Debug.Log(_allNonObjectivesInScreen.Count);
-		if (GetObjectiveByName (objectInfo.gObject.name) != null && !GetObjectiveByName(objectInfo.gObject.name).completed) {
+
+		if (GetObjectiveByName (objectInfo.gObject.name) != null && !GetObjectiveByName(objectInfo.gObject.name).completed) { //Als het een objective is en niet gecomplete
 			Objective curObjective = GetObjectiveByName (objectInfo.gObject.name);
 
-			curObjective.AddFilmObjectTime (_waitForScoreInSeconds); // --> 1 second added per second <--- old
-
+			curObjective.AddFilmObjectTime (_waitForScoreInSeconds);
 			if (!curObjective.completed) {
-				float scoreObject = (curObjective.baseScore * objectInfo.coverData + (_allNonObjectivesInScreen.Count * 50));
-				Score.Instance.AddScore(scoreObject);// TODO goede score in doen dat berekend is.
+				float scoreObject = (curObjective.baseScore * objectInfo.coverData + (_allNonObjectivesInScreen.Count * 20));
+				Score.Instance.AddScore(scoreObject);
 				curObjective.AddScoreObject (Score.Instance.ConvertScore(scoreObject));
-			} else if (curObjective.currentScore != 0) {
-				//end objective event
-				//Score.Instance.AddScore (curObjective.currentScore);
+			} else if (curObjective.currentScore != 0) { 
 				if(ObjectiveFinished != null){
-					ObjectiveFinished(curObjective.currentScore); // in currentScore moet de score staan die berekend is aan de hand van alle multi's en all.
+					ObjectiveFinished(curObjective.currentScore);
 				}
 				curObjective.ResetCurrentScore ();
 			}
-		} else {
+		} else { //else if not objective or objective is complete
 			if(!_allNonObjectivesInScreen.Contains(objectInfo.gObject)){
 				_allNonObjectivesInScreen.Add(objectInfo.gObject);
 			}
