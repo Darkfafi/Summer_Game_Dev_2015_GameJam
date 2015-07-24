@@ -57,10 +57,10 @@ public class ObjectiveList : MonoBehaviour {
 	IEnumerator FilmingObjectDelayed(ObjectViewInfo objectInfo){
 		yield return new WaitForSeconds (_waitForScoreInSeconds);
 		_filmDelaying = false;
-		//Debug.Log(GetObjectiveByName (objectInfo.gObject.name).name);
-		if (GetObjectiveByName (objectInfo.gObject.name) != null && !GetObjectiveByName(objectInfo.gObject.name).completed) { //Als het een objective is en niet gecomplete
+		//Debug.Log (objectInfo.percentageInViewObject + objectInfo.gObject.name);
+		if (GetObjectiveByName (objectInfo.gObject.name) != null && !GetObjectiveByName(objectInfo.gObject.name).completed && objectInfo.percentageInViewObject > 0.095f || ((objectInfo.percentageInViewObject > 0.0008f || objectInfo.percentageInViewObject < -0.002f) && objectInfo.percentageInViewObject < 0.01f)) { //Als het een objective is en niet gecomplete
 			Objective curObjective = GetObjectiveByName (objectInfo.gObject.name);
-
+			Debug.Log (objectInfo.percentageInViewObject + objectInfo.gObject.name);
 			curObjective.AddFilmObjectTime (_waitForScoreInSeconds);
 			if (!curObjective.completed) {
 
