@@ -133,7 +133,11 @@ public class Score : MonoBehaviour {
 					{
 						txt.enabled = false;
 						txt.text.Remove(0, 1);
-						m_fNewTotalScore += float.Parse(txt.text);
+						float newScore = float.Parse(txt.text);
+						if(float.IsNaN(newScore)){
+							newScore = 0;
+						}
+						m_fNewTotalScore += newScore;
 					}
 					
 				txt.fontSize = (int)Mathf.Lerp(txt.fontSize, m_fScorePlusFontSize, 0.1f);
@@ -200,7 +204,7 @@ public class Score : MonoBehaviour {
 	}
 	
 	public void RemoveScore(float _fScoreToRemove)
-	{
+	{	
 		m_lScoreMinusTextFields[m_iScoreMinusCounter].transform.position = new Vector3(transform.position.x, transform.position.y - 3, transform.position.z);
 		m_lScoreMinusTextFields[m_iScoreMinusCounter].enabled = true;
 		m_lScoreMinusTextFields[m_iScoreMinusCounter].text = "-" + Mathf.Round(_fScoreToRemove);

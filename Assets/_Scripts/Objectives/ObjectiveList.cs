@@ -64,6 +64,10 @@ public class ObjectiveList : MonoBehaviour {
 			curObjective.AddFilmObjectTime (_waitForScoreInSeconds);
 			if (!curObjective.completed) {
 
+				if(float.IsNaN(objectInfo.coverData) || float.IsInfinity(objectInfo.coverData)){
+					objectInfo.coverData = 0;
+				}
+
 				float scoreObject = (curObjective.baseScore * objectInfo.coverData + (_allNonObjectivesInScreen.Count * 20));
 				Score.Instance.AddScore(scoreObject);
 				curObjective.AddScoreObject (Score.Instance.ConvertScore(scoreObject));

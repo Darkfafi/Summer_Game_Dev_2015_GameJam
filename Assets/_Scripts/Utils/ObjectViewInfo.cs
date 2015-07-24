@@ -25,7 +25,7 @@ public class ObjectViewInfo {
 
 	public float coverData{
 		get{return _coverData;}
-		set{_coverData = value;}
+		set{_coverData = value; if(_coverData == float.NaN){_coverData = 0f;}}
 	}
 
 	public Vector2 pivot{
