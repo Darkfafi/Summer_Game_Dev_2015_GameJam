@@ -835,9 +835,7 @@ MonoBehaviour:
     m_HorizontalOverflow: 1
     m_VerticalOverflow: 1
     m_LineSpacing: .600000024
-  m_Text: 'barba
-
-    paparazzi'
+  m_Text: uDirector
 --- !u!222 &1267627448
 CanvasRenderer:
   m_ObjectHideFlags: 0
@@ -1195,9 +1193,7 @@ MonoBehaviour:
     m_HorizontalOverflow: 1
     m_VerticalOverflow: 1
     m_LineSpacing: .600000024
-  m_Text: 'barba
-
-    paparazzi'
+  m_Text: uDirector
 --- !u!222 &1891686715
 CanvasRenderer:
   m_ObjectHideFlags: 0
