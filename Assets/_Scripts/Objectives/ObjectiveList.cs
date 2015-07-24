@@ -35,7 +35,7 @@ public class ObjectiveList : MonoBehaviour {
 	public void FilmingObject(List<ObjectViewInfo> objectInfo){
 		if (!_filmDelaying) {
 			for(int i = objectInfo.Count - 1; i >= 0; i--){
-				Debug.Log(objectInfo[i].gObject);
+				//Debug.Log(objectInfo[i].gObject);
 				if(objectInfo[i].gObject.tag == "FilmAble"){
 					if(!_filmDelaying){
 						_filmDelaying = true;
@@ -62,6 +62,9 @@ public class ObjectiveList : MonoBehaviour {
 			} else if (curObjective.currentScore != 0) { 
 				if(ObjectiveFinished != null){
 					ObjectiveFinished(curObjective.currentScore);
+					if(AllObjectivesComplete()){
+						Invoke("ShowEndScreen",3);
+					}
 				}
 				curObjective.ResetCurrentScore ();
 			}
@@ -70,6 +73,25 @@ public class ObjectiveList : MonoBehaviour {
 				_allNonObjectivesInScreen.Add(objectInfo.gObject);
 			}
 		}
+	}
+
+	bool AllObjectivesComplete(){
+		bool result = false;
+		int counter = 0;
+		for (int i = _objectivesList.Count - 1; i >= 0; i--) {
+			if(_objectivesList[i].completed){
+				counter ++;
+			}
+		}
+		if (counter == _objectivesList.Count) {
+			result = true;
+		}
+
+		return result;
+	}
+
+	void ShowEndScreen(){
+
 	}
 
 	public void StoppedFilmingObject(ObjectViewInfo objectInfo){
@@ -95,6 +117,19 @@ public class ObjectiveList : MonoBehaviour {
 			}
 		}
 		return result;
+	}
+
+	public void ResetAllObjectives(bool alsoCompletedObjectives = false){
+		StopCoroutine("FilmingObjectDelayed");
+		_filmDelaying = false;
+		for (int i = _listOfFilmableObjects.Length - 1; i >= 0; i--) {
+			Debug.Log(_listOfFilmableObjects[i]);
+			if(GetObjectiveByName(_listOfFilmableObjects[i].name) != null){
+				if(GetObjectiveByName(_listOfFilmableObjects[i].name).completed == false || alsoCompletedObjectives){
+					GetObjectiveByName(_listOfFilmableObjects[i].name).ResetFilmObjective();
+				}
+			}
+		}
 	}
 
 	void CreateObjective(string name, float baseScore, float timeToFilmInSeconds){
