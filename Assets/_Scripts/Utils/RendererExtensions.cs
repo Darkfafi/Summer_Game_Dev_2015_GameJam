@@ -55,7 +55,7 @@ public class RendererExtensions : MonoBehaviour {
             float bottomFrustumHeight = camera.transform.position.y - (frustumHeight / 2) + (Mathf.Tan(Mathf.Deg2Rad * (360 - camera.transform.eulerAngles.x)) * distance); // bodem van je view tot het object
             float topFrustumHeight = frustumHeight + bottomFrustumHeight;
 
-            float frustumWidth = frustumHeight * camera.aspect;
+            //float frustumWidth = frustumHeight * camera.aspect;
             //float leftFrustumWidth = camera.transform.position.y - (frustumWidth / 2) + (Mathf.Tan(Mathf.Deg2Rad * (360 - camera.transform.eulerAngles.x)) * distance);
             //float rightFrustumWidth = frustumWidth + leftFrustumWidth;
 
@@ -87,7 +87,7 @@ public class RendererExtensions : MonoBehaviour {
                 //Debug.Log(collider.gameObject);
                 if (hitInfo.collider.gameObject.Equals(collider.gameObject))
                 {
-                    Debug.DrawRay(camera.transform.position, newCoor - camera.transform.position, Color.green, 0.5f);
+                   // Debug.DrawRay(camera.transform.position, newCoor - camera.transform.position, Color.green, 0.5f);
                     //Debug.Log(hitInfo.collider.gameObject + " Coor: " + newCoor);
                     hits++;
                     //TODO remove debug this
