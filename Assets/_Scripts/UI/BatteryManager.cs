@@ -19,6 +19,7 @@ public class BatteryManager : MonoBehaviour {
 
 	public Texture2D BatteryTexture;
 	public List<Sprite> BatterySprites;
+    public EndGameScript endGameScript;
 	private BatteryState m_eBatteryState = BatteryState.GREEN;
 	
 	public bool IsRealBattery = true;
@@ -51,6 +52,9 @@ public class BatteryManager : MonoBehaviour {
 		{
 			if(IsRealBattery)
 			{
+                yield return new WaitForSeconds(3);
+                int finalScore = Mathf.RoundToInt(Score.Instance.GetScore);
+                endGameScript.GameOver(finalScore);
 				//end game logic
 			}
 		}
