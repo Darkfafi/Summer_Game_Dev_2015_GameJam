@@ -41,50 +41,60 @@ public class ObjectiveList : MonoBehaviour {
 
 	public void FilmingObject(List<ObjectViewInfo> objectInfo){
 		if (!_filmDelaying) {
+			List<ObjectViewInfo> sortedFilmAbleList = new List<ObjectViewInfo>(){};
 			for(int i = objectInfo.Count - 1; i >= 0; i--){
 				//Debug.Log(objectInfo[i].gObject);
 				if(objectInfo[i].gObject.tag == "FilmAble"){
-					if(!_filmDelaying){
-						_filmDelaying = true;
-					}
-					StartCoroutine ("FilmingObjectDelayed", objectInfo[i]);
+					sortedFilmAbleList.Add(objectInfo[i]);
 				}
+			}
+
+			if(sortedFilmAbleList.Count > 0){
+				if(!_filmDelaying){
+					_filmDelaying = true;
+				}
+				StartCoroutine ("FilmingObjectDelayed", sortedFilmAbleList);
 			}
 		}
 
 	}
 
-	IEnumerator FilmingObjectDelayed(ObjectViewInfo objectInfo){
+	IEnumerator FilmingObjectDelayed(List<ObjectViewInfo> objectInfo){
 		yield return new WaitForSeconds (_waitForScoreInSeconds);
 		_filmDelaying = false;
+		float realScore = 0;
 		//Debug.Log (objectInfo.percentageInViewObject + objectInfo.gObject.name);
-		if (GetObjectiveByName (objectInfo.gObject.name) != null && !GetObjectiveByName(objectInfo.gObject.name).completed && objectInfo.percentageInViewObject > 0.095f || ((objectInfo.percentageInViewObject > 0.0008f || objectInfo.percentageInViewObject < -0.002f) && objectInfo.percentageInViewObject < 0.01f)) { //Als het een objective is en niet gecomplete
-			Objective curObjective = GetObjectiveByName (objectInfo.gObject.name);
-			Debug.Log (objectInfo.percentageInViewObject + objectInfo.gObject.name);
-			curObjective.AddFilmObjectTime (_waitForScoreInSeconds);
-			if (!curObjective.completed) {
+		for (int i = objectInfo.Count - 1; i >= 0; i--) {
+			if (GetObjectiveByName (objectInfo [i].gObject.name) != null && !GetObjectiveByName (objectInfo [i].gObject.name).completed && objectInfo [i].percentageInViewObject > 0.095f || ((objectInfo [i].percentageInViewObject > 0.0008f || objectInfo[i].percentageInViewObject < -0.002f) && objectInfo[i].percentageInViewObject < 0.01f)) { //Als het een objective is en niet gecomplete
+				Objective curObjective = GetObjectiveByName (objectInfo [i].gObject.name);
+				Debug.Log (objectInfo [i].percentageInViewObject + objectInfo [i].gObject.name);
+				curObjective.AddFilmObjectTime (_waitForScoreInSeconds);
+				if (!curObjective.completed) {
 
-				if(float.IsNaN(objectInfo.coverData) || float.IsInfinity(objectInfo.coverData)){
-					objectInfo.coverData = 0;
-				}
-
-				float scoreObject = (curObjective.baseScore * objectInfo.coverData + (_allNonObjectivesInScreen.Count * 20));
-				Score.Instance.AddScore(scoreObject);
-				curObjective.AddScoreObject (Score.Instance.ConvertScore(scoreObject));
-			} else if (curObjective.currentScore != 0) { 
-				if(ObjectiveFinished != null){
-					ObjectiveFinished(curObjective.currentScore);
-					if(AllObjectivesComplete()){
-						Invoke("ShowEndScreen",5);
+					if (float.IsNaN (objectInfo [i].coverData) || float.IsInfinity (objectInfo [i].coverData)) {
+						objectInfo [i].coverData = 0;
 					}
+
+					float scoreObject = (curObjective.baseScore * objectInfo [i].coverData + (_allNonObjectivesInScreen.Count * 20));
+					realScore += Score.Instance.ConvertScore (scoreObject);
+
+					curObjective.AddScoreObject (Score.Instance.ConvertScore (scoreObject));
+				} else if (curObjective.currentScore != 0) { 
+					if (ObjectiveFinished != null) {
+						ObjectiveFinished (curObjective.currentScore);
+						if (AllObjectivesComplete ()) {
+							Invoke ("ShowEndScreen", 5);
+						}
+					}
+					curObjective.ResetCurrentScore ();
 				}
-				curObjective.ResetCurrentScore ();
-			}
-		} else { //else if not objective or objective is complete
-			if(!_allNonObjectivesInScreen.Contains(objectInfo.gObject)){
-				_allNonObjectivesInScreen.Add(objectInfo.gObject);
+			} else { //else if not objective or objective is complete
+				if (!_allNonObjectivesInScreen.Contains (objectInfo[i].gObject)) {
+					_allNonObjectivesInScreen.Add (objectInfo[i].gObject);
+				}
 			}
 		}
+		Score.Instance.AddScore (realScore,false);
 	}
 
 	bool AllObjectivesComplete(){

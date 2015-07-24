@@ -154,9 +154,11 @@ public class Score : MonoBehaviour {
 		TotalScore.GetComponent<Text>().text = string.Format("{0:n0}", Mathf.Round(m_fTotalScore));
 	}
 	
-	public void AddScore(float _fScoreToAdd)
+	public void AddScore(float _fScoreToAdd, bool useMulti = true)
 	{
 		//TODO check multipliers, add score to left only when objective is done
+		float realMulti = 1;
+
 		m_fMultiplier = 0;
 		
 		if (ScoreMultiplier.Instance.Multipliers.Count == 0)
@@ -181,9 +183,15 @@ public class Score : MonoBehaviour {
 				}
 			}
 		}
-		
+
+		if (!useMulti) {
+			realMulti = 1;
+		} else {
+			realMulti = m_fMultiplier;
+		}
+
 		//TODO break multiplier stuff
-		_fScoreToAdd = _fScoreToAdd * m_fMultiplier;
+		_fScoreToAdd = _fScoreToAdd * realMulti;
 		
 		m_lScorePlusTextFields[m_iScorePlusCounter].transform.position = new Vector3(transform.position.x, transform.position.y + 3, transform.position.z);
 		m_lScorePlusTextFields[m_iScorePlusCounter].enabled = true;
