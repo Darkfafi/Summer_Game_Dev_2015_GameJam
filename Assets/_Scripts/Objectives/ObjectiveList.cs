@@ -39,26 +39,29 @@ public class ObjectiveList : MonoBehaviour {
 
 	public void FilmingObject(List<ObjectViewInfo> objectInfo){
 		if (!_filmDelaying) {
-			_filmDelaying = true;
+			if(objectInfo.Count > 1){
+				_filmDelaying = true;
+			}
 			for(int i = objectInfo.Count - 1; i >= 0; i--){
+				Debug.Log(objectInfo[i].gObject);
 				if(objectInfo[i].gObject.tag == "FilmAble"){
 					StartCoroutine ("FilmingObjectDelayed", objectInfo[i]);
 				}
 			}
 		}
+
 	}
 
 	IEnumerator FilmingObjectDelayed(ObjectViewInfo objectInfo){
 		yield return new WaitForSeconds (_waitForScoreInSeconds);
 		_filmDelaying = false;
-		//Debug.Log(_allNonObjectivesInScreen.Count);
+
 		if (GetObjectiveByName (objectInfo.gObject.name) != null && !GetObjectiveByName(objectInfo.gObject.name).completed) {
 			Objective curObjective = GetObjectiveByName (objectInfo.gObject.name);
 
 			curObjective.AddFilmObjectTime (_waitForScoreInSeconds); // --> 1 second added per second <--- old
-
 			if (!curObjective.completed) {
-				float scoreObject = (curObjective.baseScore * objectInfo.coverData + (_allNonObjectivesInScreen.Count * 50));
+				float scoreObject = (curObjective.baseScore * objectInfo.coverData + (_allNonObjectivesInScreen.Count * 20));
 				Score.Instance.AddScore(scoreObject);// TODO goede score in doen dat berekend is.
 				curObjective.AddScoreObject (Score.Instance.ConvertScore(scoreObject));
 			} else if (curObjective.currentScore != 0) {
