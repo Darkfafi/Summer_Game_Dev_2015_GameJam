@@ -27,9 +27,14 @@ public class ObjectiveList : MonoBehaviour {
 
 
 		}*/
-		CreateObjective ("DomTower",100,5);
-		CreateObjective ("Tree", 50, 5);
-		CreateObjective ("Stand", 20, 10);
+		//CreateObjective ("DomTower",100,5);
+        CreateObjective("NoordBrug", 100, 10);
+        CreateObjective("HoofdBrug", 100, 10);
+        CreateObjective("ZuidBrug", 100, 10);
+        CreateObjective("StadHuis", 100, 10);
+        CreateObjective("LoempiaKraam", 100, 10);
+        CreateObjective("DomToren", 100, 10);
+        CreateObjective("WinkelVanSinkel", 150, 10);
 	}
 
 	public void FilmingObject(List<ObjectViewInfo> objectInfo){
