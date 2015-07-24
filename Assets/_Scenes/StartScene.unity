@@ -552,6 +552,7 @@ GameObject:
   - 222: {fileID: 676930097}
   - 114: {fileID: 676930096}
   - 114: {fileID: 676930095}
+  - 114: {fileID: 676930094}
   m_Layer: 5
   m_Name: Button
   m_TagString: Untagged
@@ -577,6 +578,20 @@ RectTransform:
   m_AnchoredPosition: {x: 7.95767046e-05, y: -37.7000008}
   m_SizeDelta: {x: 189.800003, y: 30}
   m_Pivot: {x: .5, y: .5}
+--- !u!114 &676930094
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 676930092}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 04dc59358606c014ab73950a267c4910, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  isEnd: 0
+  dualStartGameScript: {fileID: 781118729}
+  endSceneManager: {fileID: 0}
 --- !u!114 &676930095
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -666,6 +681,7 @@ GameObject:
   m_Component:
   - 4: {fileID: 781118730}
   - 114: {fileID: 781118729}
+  - 114: {fileID: 781118731}
   m_Layer: 0
   m_Name: GameController
   m_TagString: Untagged
@@ -696,6 +712,21 @@ Transform:
   m_Children: []
   m_Father: {fileID: 0}
   m_RootOrder: 5
+--- !u!114 &781118731
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 781118728}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: d8ae05e1a1e69594c828a4b66b2e62dc, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  screenOneResolution: {x: 1920, y: 1080}
+  screenTwoResolution: {x: 1920, y: 1080}
+  cameraScreenOne: {fileID: 1688929398}
+  cameraScreenTwo: {fileID: 1819945662}
 --- !u!1 &963640557
 GameObject:
   m_ObjectHideFlags: 0

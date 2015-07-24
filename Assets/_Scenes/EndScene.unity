@@ -1102,6 +1102,7 @@ GameObject:
   m_Component:
   - 4: {fileID: 1109033018}
   - 114: {fileID: 1109033017}
+  - 114: {fileID: 1109033019}
   m_Layer: 0
   m_Name: GameObject
   m_TagString: Untagged
@@ -1136,6 +1137,21 @@ Transform:
   m_Children: []
   m_Father: {fileID: 0}
   m_RootOrder: 5
+--- !u!114 &1109033019
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 1109033016}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: d8ae05e1a1e69594c828a4b66b2e62dc, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  screenOneResolution: {x: 1920, y: 1080}
+  screenTwoResolution: {x: 1920, y: 1080}
+  cameraScreenOne: {fileID: 1688929398}
+  cameraScreenTwo: {fileID: 1819945662}
 --- !u!1 &1405680294
 GameObject:
   m_ObjectHideFlags: 0
@@ -1297,7 +1313,7 @@ GameObject:
   - 222: {fileID: 1814974397}
   - 114: {fileID: 1814974396}
   - 114: {fileID: 1814974395}
-  - 114: {fileID: 1814974394}
+  - 114: {fileID: 1814974398}
   m_Layer: 5
   m_Name: Button2
   m_TagString: Untagged
@@ -1323,20 +1339,6 @@ RectTransform:
   m_AnchoredPosition: {x: 7.95767046e-05, y: -30.0000038}
   m_SizeDelta: {x: 160, y: 30}
   m_Pivot: {x: .5, y: .5}
---- !u!114 &1814974394
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_PrefabParentObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 0}
-  m_GameObject: {fileID: 1814974392}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 1d9cabeec5a7a914b965740ef72a6c7a, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  isEnd: 1
-  dualStartGameScript: {fileID: 0}
-  endSceneManager: {fileID: 0}
 --- !u!114 &1814974395
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1417,6 +1419,20 @@ CanvasRenderer:
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 0}
   m_GameObject: {fileID: 1814974392}
+--- !u!114 &1814974398
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 1814974392}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 04dc59358606c014ab73950a267c4910, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  isEnd: 1
+  dualStartGameScript: {fileID: 0}
+  endSceneManager: {fileID: 1109033017}
 --- !u!1 &1819945658
 GameObject:
   m_ObjectHideFlags: 0
