@@ -22,7 +22,7 @@ public class DualScreenResolutionMod : MonoBehaviour {
 		cameraOneScale = screenOneResolution.x / fullScreenWidth;
 		cameraTwoScale = screenTwoResolution.x / fullScreenWidth;
 
-		cameraScreenOne.rect = new Rect (0,0,cameraOneScale,1);
-		cameraScreenTwo.rect = new Rect (cameraOneScale,0,cameraTwoScale,1);
+		cameraScreenTwo.rect = new Rect (0,0,cameraOneScale,1);
+		cameraScreenOne.rect = new Rect (cameraOneScale,0,cameraTwoScale,1);
 	}
 }
