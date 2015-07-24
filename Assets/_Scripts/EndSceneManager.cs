@@ -33,8 +33,8 @@ public class EndSceneManager : MonoBehaviour {
         if (playersConfirmed >= 2)
         {
             //Do stuff when both players start the game
-            //Application.LoadLevel(0);
-            Debug.Log("Going back to start of Game");
+            Application.LoadLevel(0);
+            //Debug.Log("Going back to start of Game");
         }
     }
 }

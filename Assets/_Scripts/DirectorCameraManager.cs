@@ -26,12 +26,12 @@ public class DirectorCameraManager : MonoBehaviour {
 	// Update is called once per frame
 	void Update () 
 	{
-		if (Input.GetButtonDown("Jump")) {
+		if (Input.GetButtonDown("SwitchCamera")) {
 			SwitchCamera();
-			Score.Instance.AddScore(100);
+			//Score.Instance.AddScore(100);
 		}
 		if (Input.GetButtonDown("Fire1")) {
-			Score.Instance.PushTotalScore(100);
+			//Score.Instance.PushTotalScore(100);
 		}
 	}
 
