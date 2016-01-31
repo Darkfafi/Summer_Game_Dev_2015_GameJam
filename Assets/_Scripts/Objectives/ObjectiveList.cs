@@ -67,7 +67,7 @@ public class ObjectiveList : MonoBehaviour {
 		for (int i = objectInfo.Count - 1; i >= 0; i--) {
 			if (GetObjectiveByName (objectInfo [i].gObject.name) != null && !GetObjectiveByName (objectInfo [i].gObject.name).completed && objectInfo [i].percentageInViewObject > 0.095f || ((objectInfo [i].percentageInViewObject > 0.0008f || objectInfo[i].percentageInViewObject < -0.002f) && objectInfo[i].percentageInViewObject < 0.01f)) { //Als het een objective is en niet gecomplete
 				Objective curObjective = GetObjectiveByName (objectInfo [i].gObject.name);
-				Debug.Log (objectInfo [i].percentageInViewObject + objectInfo [i].gObject.name);
+				//Debug.Log (objectInfo [i].percentageInViewObject + objectInfo [i].gObject.name);
 				curObjective.AddFilmObjectTime (_waitForScoreInSeconds);
 				if (!curObjective.completed) {
 
